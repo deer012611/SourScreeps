@@ -3,10 +3,11 @@ import {
   roleBirth,
   roleBuilder,
   roleDig,
-  roleDismantler,
   roleEngineer,
   roleTransporter,
-  roleUpgrader
+  roleUpgrader,
+  roleOutDig,
+  roleOutTransporter
 } from './role';
 
 export default ErrorMapper.wrapLoop(() => {
@@ -22,11 +23,11 @@ export default ErrorMapper.wrapLoop(() => {
   roleBirth([
     {
       creepName: 'transporter',
-      creepNum: 4,
+      creepNum: 6,
       creepProperty: [
         [WORK, CARRY, MOVE],
-        [(WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE)],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, CARRY, MOVE, MOVE]
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [CARRY, CARRY, CARRY, CARRY, MOVE, CARRY, CARRY, CARRY, MOVE, MOVE, WORK, CARRY, MOVE]
       ]
     },
     {
@@ -35,7 +36,7 @@ export default ErrorMapper.wrapLoop(() => {
       creepProperty: [
         [WORK, WORK, MOVE],
         [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, MOVE, MOVE]
+        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
       ]
     },
     {
@@ -44,12 +45,12 @@ export default ErrorMapper.wrapLoop(() => {
       creepProperty: [
         [WORK, WORK, MOVE],
         [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, MOVE, MOVE]
+        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
       ]
     },
     {
       creepName: 'upgrader',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -59,22 +60,34 @@ export default ErrorMapper.wrapLoop(() => {
     {
       creepName: 'builder',
       creepNum: 2,
-      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]]
-    },
-    {
-      creepName: 'outbuilder',
-      creepNum: 0,
-      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]]
-    },
-    {
-      creepName: 'dismantler',
-      creepNum: 0,
-      creepProperty: [[WORK, CARRY, MOVE], [WORK, WORK, WORK, CARRY, MOVE, MOVE]]
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]
+      ]
     },
     {
       creepName: 'engineer',
-      creepNum: 0,
+      creepNum: 1,
       creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]]
+    },
+    {
+      creepName: 'outDig',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, WORK, MOVE],
+        [WORK, WORK, WORK, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'outTransporter',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [CARRY, CARRY, CARRY, CARRY, MOVE, CARRY, CARRY, CARRY, MOVE, MOVE, WORK, CARRY, MOVE]
+      ]
     }
   ]);
 
@@ -82,21 +95,29 @@ export default ErrorMapper.wrapLoop(() => {
   var tower = Game.getObjectById('5ab6827b7afe841dc7136d09');
   if (tower) {
     var closestBadRampart = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-      filter: structure => structure.hits < 1000 && structure.structureType === 'rampart'
+      filter: structure => structure.hits < 3000 && structure.structureType === 'rampart'
     });
-    var closestRampart = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+    // var closestRampart = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+    //   filter: structure =>
+    //     structure.hits < structure.hitsMax * 0.2 && structure.structureType === 'rampart'
+    // });
+    var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: structure =>
-        structure.hits < structure.hitsMax * 0.2 && structure.structureType === 'rampart'
+        structure.hits < structure.hitsMax * 0.2 &&
+        structure.structureType !== 'rampart' &&
+        structure.structureType !== 'constructedWall'
     });
     var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+
     if (closestHostile) {
       tower.attack(closestHostile);
-    } else {
+    } else if (tower.energy > tower.energyCapacity * 0.6) {
       if (closestBadRampart) {
         tower.repair(closestBadRampart);
-      } else if (closestRampart) {
-        tower.repair(closestRampart);
       } else {
+        // else if (closestRampart) {
+        //   tower.repair(closestRampart);
+        // }
         tower.repair(closestDamagedStructure);
       }
     }
@@ -129,6 +150,12 @@ export default ErrorMapper.wrapLoop(() => {
     }
     if (creep.memory.role === 'dismantler') {
       roleDismantler(creep);
+    }
+    if (creep.memory.role === 'outDig') {
+      roleOutDig(creep);
+    }
+    if (creep.memory.role === 'outTransporter') {
+      roleOutTransporter(creep);
     }
   }
 

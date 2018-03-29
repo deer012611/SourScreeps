@@ -2,7 +2,7 @@ export const roleBirth = (creep: Array) => {
   for (var i = 0; i < creep.length; i++) {
     // 看transporter的数量小于3，就先生产transporter
     var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
-    if (creep[i].creepName !== 'transporter' && transnum.length < 3) {
+    if (creep[i].creepName !== 'transporter' && transnum.length < 2) {
       creep[i] = [
         {
           creepName: 'transporter',
@@ -19,7 +19,13 @@ export const roleBirth = (creep: Array) => {
       case 'dig-2':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
+      case 'outDig':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
       case 'transporter':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
+      case 'outTransporter':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
       case 'upgrader':
@@ -28,13 +34,7 @@ export const roleBirth = (creep: Array) => {
       case 'builder':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
-      case 'outbuilder':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
       case 'engineer':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'dismantler':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
     }
@@ -57,12 +57,14 @@ export const roleBirth = (creep: Array) => {
     });
     // console.log(extensions.length);
     if (_name === 'transporter') {
-      if (n.length < 3) {
+      if (extensions.length < 5) {
         p = _property[0];
         // console.log("1burn :" + p)
+      } else if (n.length < 2) {
+        p = _property[1];
+        // console.log('2burn :' + p);
       } else {
         p = _property[2];
-        // console.log("2burn :" + p)
       }
     } else if (_name === 'dig') {
       if (extensions.length < 5) {
@@ -71,9 +73,11 @@ export const roleBirth = (creep: Array) => {
       } else {
         p = _property[2];
       }
-    } else {
-      p = _property[1];
+    } else if (_property[2] && _name !== 'transporter') {
+      p = _property[2];
       // console.log("//burn :" + p)
+    } else if (_name !== 'transporter') {
+      p = _property[1];
     }
     var newName = '';
     if (n.length < _num) {

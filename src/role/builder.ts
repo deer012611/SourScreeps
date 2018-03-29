@@ -8,7 +8,7 @@ export const roleBuilder = (creep: Creep) => {
   });
   var targetsOther = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
     filter: structure => {
-      return structure.structureType !== 'road';
+      return structure.structureType !== 'road' && structure.structureType !== 'constructionSite';
     }
   });
   if (targetsOther) {
@@ -55,18 +55,67 @@ export const roleBuilder = (creep: Creep) => {
     filter: structure =>
       structure.hits < structure.hitsMax && structure.structureType === 'constructedWall'
   });
+  function goout() {
+    if (creep.room.name !== 'E9N44') {
+      const exitDir = Game.map.findExit('E8N44', 'E9N44');
+      const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
+      creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+    } else {
+      if (targetsdrop) {
+        if (creep.carry.energy > 0) {
+          build();
+        } else {
+          harvest();
+        }
+      } else {
+        if (creep.carry.energy < creep.carryCapacity) {
+          harvest();
+        } else {
+          build();
+        }
+      }
+      //
+      // if (creep.carry.energy < creep.carryCapacity) {
+      //   harvest();
+      // } else {
+      //   if (targets) {
+      //     console.log(targets);
+      //     if (creep.build(targets) === ERR_NOT_IN_RANGE) {
+      //       creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+      //     }
+      //   }
+      // }
 
-  if (containersWithEnergy) {
-    if (creep.carry.energy > 0) {
-      build();
-    } else {
-      harvest();
+      // var sources = creep.room.find(FIND_SOURCES);
+      // if (sources[0].energy > 0) {
+      //   if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
+      //     creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+      //   }
+      // }
     }
+  }
+  // 其他屋子建造
+  if (creep.id === '5abcbc3d7efca011e9417bb4') {
+    goout();
+    // if (creep.carry.energy < creep.carryCapacity) {
+    //   harvest();
+    // } else {
+    //   build();
+    // }
   } else {
-    if (creep.carry.energy < creep.carryCapacity) {
-      harvest();
+    // 我的屋子建造
+    if (containersWithEnergy) {
+      if (creep.carry.energy > 0) {
+        build();
+      } else {
+        harvest();
+      }
     } else {
-      build();
+      if (creep.carry.energy < creep.carryCapacity) {
+        harvest();
+      } else {
+        build();
+      }
     }
   }
 
@@ -75,17 +124,17 @@ export const roleBuilder = (creep: Creep) => {
       if (creep.build(buildRampart) === ERR_NOT_IN_RANGE) {
         creep.moveTo(buildRampart, { visualizePathStyle: { stroke: '#ffffff' } });
       }
+    } else if (targets) {
+      console.log(targets);
+      if (creep.build(targets) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+      }
     } else if (fixtargets) {
       if (creep.repair(fixtargets) === ERR_NOT_IN_RANGE) {
         creep.moveTo(fixtargets, {
           visualizePathStyle: { stroke: '#00ff00' }
         });
         creep.say('🔧');
-      }
-    } else if (targets) {
-      console.log(targets);
-      if (creep.build(targets) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     } else {
       console.log('nothing to build -> fix');
@@ -113,22 +162,18 @@ export const roleBuilder = (creep: Creep) => {
   }
 
   function harvest() {
-    console.log(23333);
     if (creep.carry.energy < creep.carryCapacity) {
       // 如果container里边有能量->container
       if (containersWithEnergy[0] !== undefined) {
-        console.log(1);
         console.log(containersWithEnergy[0]);
         if (creep.withdraw(containersWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(containersWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
         }
       } else if (targetsdrop) {
-        console.log(2);
         creep.moveTo(targetsdrop);
         creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
         creep.say('😃');
       } else {
-        console.log(3);
         if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
           creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
         }
