@@ -74,34 +74,11 @@ export const roleBuilder = (creep: Creep) => {
           build();
         }
       }
-      //
-      // if (creep.carry.energy < creep.carryCapacity) {
-      //   harvest();
-      // } else {
-      //   if (targets) {
-      //     console.log(targets);
-      //     if (creep.build(targets) === ERR_NOT_IN_RANGE) {
-      //       creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
-      //     }
-      //   }
-      // }
-
-      // var sources = creep.room.find(FIND_SOURCES);
-      // if (sources[0].energy > 0) {
-      //   if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
-      //     creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
-      //   }
-      // }
     }
   }
   // 其他屋子建造
-  if (creep.id === '5abcbc3d7efca011e9417bb4') {
+  if (creep.id === '5abcd882b5cc5d1bb4f7c834') {
     goout();
-    // if (creep.carry.energy < creep.carryCapacity) {
-    //   harvest();
-    // } else {
-    //   build();
-    // }
   } else {
     // 我的屋子建造
     if (containersWithEnergy) {
