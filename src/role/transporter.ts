@@ -29,21 +29,19 @@ export const roleTransporter = (creep: Creep) => {
       );
     }
   });
-  var targetsSTORAGE = creep.room.find(FIND_STRUCTURES, {
+  var targetSTORAGE = creep.room.find(FIND_STRUCTURES, {
     filter: structure => {
-      return STRUCTURE_STORAGE;
+      return (
+        //   structure.structureType === STRUCTURE_SPAWN ||
+        // structure.structureType === STRUCTURE_EXTENSION ||
+        structure.structureType === STRUCTURE_STORAGE
+      );
     }
   });
-  // var targetsTower = creep.room.find(FIND_STRUCTURES, {
-  //   filter: structure => {
-  //     return (
-  //       structure.structureType === STRUCTURE_TOWER && structure.energy < structure.energyCapacity
-  //     );
-  //   }
-  // });
+
   var containersNoEnergy = creep.room.find(FIND_STRUCTURES, {
     filter: i =>
-      i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] < i.storeCapacity
+      i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] < i.storeCapacity * 0.8
   });
   // ----
   if (containersWithEnergy[0] || targetsdrop[0] || storageWithEnergy[0]) {
@@ -91,23 +89,24 @@ export const roleTransporter = (creep: Creep) => {
       }
     }
   }
-
   function transport() {
     if (targets.length > 0) {
       if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
       }
-    } else if (containersNoEnergy !== undefined) {
+    } else if (containersNoEnergy.length > 0) {
+      console.log(10);
       if (creep.transfer(containersNoEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(containersNoEnergy[0], { visualizePathStyle: { stroke: '#ffffff' } });
       }
-    } else if (targetTower !== undefined) {
+    } else if (targetTower.length > 0) {
       if (creep.transfer(targetTower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(targetTower[0], { visualizePathStyle: { stroke: '#ffffff' } });
       }
-    } else if (targetsSTORAGE !== undefined) {
-      if (creep.transfer(targetsSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(targetsSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
+    } else if (targetSTORAGE.length > 0) {
+      console.log(2);
+      if (creep.transfer(targetSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(targetSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
       }
     } else {
       // else if (targetsTower.length > 0) {

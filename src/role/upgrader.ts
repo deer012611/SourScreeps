@@ -33,14 +33,12 @@ export const roleUpgrader = (creep: Creep) => {
   // }
   //
   if (creep.memory.upgrading) {
-    console.log('你是傻子吧');
     if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
       creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });
     }
   } else {
-    console.log('傻子');
-    // 如果container里边有能量->container
     if (containersWithEnergy) {
+      // 如果container里边有能量->container
       if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
       }
