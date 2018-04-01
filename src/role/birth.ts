@@ -2,12 +2,12 @@ export const roleBirth = (creep: Array) => {
   for (var i = 0; i < creep.length; i++) {
     // 看transporter的数量小于3，就先生产transporter
     var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
-    if (creep[i].creepName !== 'transporter' && transnum.length < 2) {
+    if (creep[i].creepName !== 'transporter' && transnum.length < 3) {
       creep[i] = [
         {
           creepName: 'transporter',
           creepNum: 4,
-          creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]]
+          creepProperty: [[WORK, CARRY, MOVE], [(WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE)]]
         }
       ];
     }

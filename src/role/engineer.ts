@@ -23,12 +23,12 @@ export const roleEngineer = (creep: Creep) => {
   // 修路
   var closestRoad = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: structure =>
-      structure.hits < structure.hitsMax * 0.5 && structure.structureType === 'road'
+      structure.hits < structure.hitsMax * 0.7 && structure.structureType === 'road'
   });
   // 修油桶
   var closestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: structure =>
-      structure.hits < structure.hitsMax * 0.7 && structure.structureType === 'container'
+      structure.hits < structure.hitsMax * 0.5 && structure.structureType === 'container'
   });
 
   if (creep.carry.energy > 0) {
@@ -45,6 +45,13 @@ export const roleEngineer = (creep: Creep) => {
           visualizePathStyle: { stroke: '#00ff00' }
         });
         creep.say('🛠️' + closestContainer.structureType);
+      }
+    } else if (closestRoad !== undefined) {
+      if (creep.repair(closestRoad) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(closestRoad, {
+          visualizePathStyle: { stroke: '#00ff00' }
+        });
+        creep.say('🔧');
       }
     } else if (closestBadRampart) {
       if (creep.repair(closestBadRampart) === ERR_NOT_IN_RANGE) {
@@ -70,13 +77,6 @@ export const roleEngineer = (creep: Creep) => {
     } else if (closestWallDamagedStructure !== undefined && closestWallDamagedStructure !== '') {
       if (creep.repair(closestWallDamagedStructure) === ERR_NOT_IN_RANGE) {
         creep.moveTo(closestWallDamagedStructure, { visualizePathStyle: { stroke: '#00ff00' } });
-        creep.say('🔧');
-      }
-    } else if (closestRoad !== undefined) {
-      if (creep.repair(closestRoad) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(closestRoad, {
-          visualizePathStyle: { stroke: '#00ff00' }
-        });
         creep.say('🔧');
       }
     } else {

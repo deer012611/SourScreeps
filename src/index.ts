@@ -23,11 +23,28 @@ export default ErrorMapper.wrapLoop(() => {
   roleBirth([
     {
       creepName: 'transporter',
-      creepNum: 6,
+      creepNum: 3,
       creepProperty: [
         [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [CARRY, CARRY, CARRY, CARRY, MOVE, CARRY, CARRY, CARRY, MOVE, MOVE, WORK, CARRY, MOVE]
+        [WORK, CARRY, MOVE, CARRY, MOVE],
+        [
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          WORK,
+          CARRY,
+          MOVE,
+          MOVE
+        ]
       ]
     },
     {
@@ -59,7 +76,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'builder',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -68,7 +85,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'engineer',
-      creepNum: 1,
+      creepNum: 2,
       creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]]
     },
     {
