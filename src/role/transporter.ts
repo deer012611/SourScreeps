@@ -91,13 +91,12 @@ export const roleTransporter = (creep: Creep) => {
       //   }
       // }
       // else
-      // if (storageWithEnergy) {
-      //   if (creep.withdraw(storageWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-      //     creep.moveTo(storageWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
-      //     creep.say('😍');
-      //   }
-      // }
-      if (creep.memory.source) {
+      if (storageWithEnergy) {
+        if (creep.withdraw(storageWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(storageWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+          creep.say('😍');
+        }
+      } else if (creep.memory.source) {
         if (creep.harvest(creep.memory.source) === ERR_NOT_IN_RANGE) {
           creep.moveTo(creep.memory.source, { visualizePathStyle: { stroke: '#ffaa00' } });
         }
