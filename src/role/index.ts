@@ -6,3 +6,4 @@ export * from './transporter';
 export * from './upgrader';
 export * from './outTransporter';
 export * from './outDig';
+export * from './solider';

@@ -41,7 +41,9 @@ export const roleBuilder = (creep: Creep) => {
       return structure.energy > 0;
     }
   });
-  var targetsdrop = creep.pos.findClosestByPath(FIND_DROPPED_RESOURCES);
+  var targetsdrop = creep.room.find(FIND_DROPPED_RESOURCES, {
+    filter: i => i.amount > creep.carryCapacity
+  });
   var containersWithEnergy = creep.room.find(FIND_STRUCTURES, {
     filter: i => i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] > 0
   });
@@ -55,54 +57,13 @@ export const roleBuilder = (creep: Creep) => {
     filter: structure =>
       structure.hits < structure.hitsMax && structure.structureType === 'constructedWall'
   });
-  function goout() {
-    if (creep.room.name !== 'E9N44') {
-      const exitDir = Game.map.findExit('E8N44', 'E9N44');
-      const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
-      creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
-    } else {
-      if (targetsdrop) {
-        if (creep.carry.energy > 0) {
-          build();
-        } else {
-          harvest();
-        }
-      } else {
-        if (creep.carry.energy < creep.carryCapacity) {
-          harvest();
-        } else {
-          build();
-        }
-      }
-    }
-  }
-  // 其他屋子建造
-  if (creep.id === '5abcd882b5cc5d1bb4f7c834') {
-    goout();
-  } else {
-    // 我的屋子建造
-    if (containersWithEnergy) {
-      if (creep.carry.energy > 0) {
-        build();
-      } else {
-        harvest();
-      }
-    } else {
-      if (creep.carry.energy < creep.carryCapacity) {
-        harvest();
-      } else {
-        build();
-      }
-    }
-  }
 
-  function build() {
+  const build = (creep: Creep) => {
     if (buildRampart) {
       if (creep.build(buildRampart) === ERR_NOT_IN_RANGE) {
         creep.moveTo(buildRampart, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     } else if (targets) {
-      console.log(targets);
       if (creep.build(targets) === ERR_NOT_IN_RANGE) {
         creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
       }
@@ -136,24 +97,65 @@ export const roleBuilder = (creep: Creep) => {
         }
       }
     }
-  }
+  };
 
-  function harvest() {
+  const harvest = (creep: Creep) => {
     if (creep.carry.energy < creep.carryCapacity) {
-      // 如果container里边有能量->container
-      if (containersWithEnergy[0] !== undefined) {
-        console.log(containersWithEnergy[0]);
+      if (targetsdrop.length) {
+        creep.moveTo(targetsdrop[0]);
+        creep.pickup(targetsdrop[0], { visualizePathStyle: { stroke: '#ffffff' } });
+        creep.say('😃');
+      } else if (containersWithEnergy[0] !== undefined) {
+        // 如果container里边有能量->container
         if (creep.withdraw(containersWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(containersWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
         }
-      } else if (targetsdrop) {
-        creep.moveTo(targetsdrop);
-        creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
-        creep.say('😃');
       } else {
         if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
           creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
         }
+      }
+    }
+  };
+
+  const goout = (creep: Creep) => {
+    if (creep.room.name !== 'E8N43') {
+      const exitDir = Game.map.findExit(creep.room, 'E8N43');
+      const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
+      creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+    } else {
+      if (targetsdrop) {
+        if (creep.carry.energy > 0) {
+          build(creep);
+        } else {
+          harvest(creep);
+        }
+      } else {
+        if (creep.carry.energy < creep.carryCapacity) {
+          harvest(creep);
+        } else {
+          build(creep);
+        }
+      }
+    }
+  };
+
+  // 其他屋子建造
+  if (creep.id === '5aca50b83e3b7013d0a66d6a' || creep.id === '5aca513e94121d186c2a8cc4') {
+    goout(creep);
+  } else {
+    // 我的屋子建造
+    if (containersWithEnergy) {
+      if (creep.carry.energy > 0) {
+        build(creep);
+      } else {
+        harvest(creep);
+      }
+    } else {
+      if (creep.carry.energy < creep.carryCapacity) {
+        harvest(creep);
+      } else {
+        build(creep);
       }
     }
   }

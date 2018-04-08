@@ -2,15 +2,15 @@ export const roleBirth = (creep: Array) => {
   for (var i = 0; i < creep.length; i++) {
     // 看transporter的数量小于3，就先生产transporter
     var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
-    if (creep[i].creepName !== 'transporter' && transnum.length < 2) {
-      creep[i] = [
-        {
-          creepName: 'transporter',
-          creepNum: 4,
-          creepProperty: [[WORK, CARRY, MOVE], [(WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE)]]
-        }
-      ];
-    }
+    // if (creep[i].creepName !== 'transporter' && transnum.length < 2) {
+    //   creep[i] = [
+    //     {
+    //       creepName: 'transporter',
+    //       creepNum: 4,
+    //       creepProperty: [[WORK, CARRY, MOVE], [(WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE)]]
+    //     }
+    //   ];
+    // }
 
     switch (creep[i].creepName) {
       case 'dig-1':
@@ -19,13 +19,19 @@ export const roleBirth = (creep: Array) => {
       case 'dig-2':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
-      case 'outDig':
+      case 'outDig-Flag2':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
+      case 'outDig-Flag3':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
       case 'transporter':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
-      case 'outTransporter':
+      case 'outTransporter-Flag2':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
+      case 'outTransporter-Flag3':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
       case 'upgrader':
@@ -35,6 +41,9 @@ export const roleBirth = (creep: Array) => {
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
       case 'engineer':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
+      case 'solider':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
     }
@@ -81,7 +90,14 @@ export const roleBirth = (creep: Array) => {
     }
     var newName = '';
     if (n.length < _num) {
-      if (_name === 'dig-1' || _name === 'dig-2') {
+      if (
+        _name === 'dig-1' ||
+        _name === 'dig-2' ||
+        _name === 'outDig-Flag2' ||
+        _name === 'outDig-Flag3' ||
+        _name === 'outTransporter-Flag2' ||
+        _name === 'outTransporter-Flag3'
+      ) {
         newName = a + '-' + Game.time;
       } else {
         newName = a + Game.time;

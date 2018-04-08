@@ -1,17 +1,22 @@
-export const roleOutDig = (creep: Creep) => {
+export const roleOutDig = (creep: Creep, flag: string) => {
   goout();
+  console.log(creep);
 
-  console.log(creep.room);
   function goout() {
-    if (creep.room.name !== 'E9N44') {
-      const exitDir = Game.map.findExit('E8N44', 'E9N44');
-      const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
-      creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+    if (Game.flags[flag].room === undefined) {
+      creep.moveTo(Game.flags[flag]);
     } else {
-      var sources = creep.room.find(FIND_SOURCES);
-      if (sources[0].energy > 0) {
-        if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+      var toRoom = Game.flags[flag].room.name;
+      if (creep.room.name !== toRoom) {
+        const exitDir = Game.map.findExit('E8N44', toRoom);
+        const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
+        creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+      } else {
+        var sources = creep.room.find(FIND_SOURCES);
+        if (sources[0].energy > 0) {
+          if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+          }
         }
       }
     }
