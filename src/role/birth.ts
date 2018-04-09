@@ -205,6 +205,21 @@ export const roleBirth = () => {
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     }
   ];
+  // 看dig的数量小于3，就先生产dig
+  var digsnum = _.filter(Game.creeps, creep => creep.memory.role === 'dig-2');
+  if (digsnum.length < 1) {
+    creep = [
+      {
+        creepName: 'dig-2',
+        creepNum: 1,
+        creepProperty: [
+          [WORK, WORK, MOVE],
+          [WORK, WORK, WORK, MOVE],
+          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
+        ]
+      }
+    ];
+  }
   // 看transporter的数量小于3，就先生产transporter
   var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
   if (transnum.length < 2) {
@@ -233,21 +248,6 @@ export const roleBirth = () => {
             MOVE,
             MOVE
           ]
-        ]
-      }
-    ];
-  }
-  // 看dig的数量小于3，就先生产dig
-  var digsnum = _.filter(Game.creeps, creep => creep.memory.role === 'dig-2');
-  if (digsnum.length < 1) {
-    creep = [
-      {
-        creepName: 'dig-2',
-        creepNum: 1,
-        creepProperty: [
-          [WORK, WORK, MOVE],
-          [WORK, WORK, WORK, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
         ]
       }
     ];
