@@ -1,14 +1,11 @@
 export const roleOutDig = (creep: Creep, flag: string) => {
-  goout();
-  console.log(creep);
-
-  function goout() {
+  const goout = (creep: Creep) => {
     if (Game.flags[flag].room === undefined) {
       creep.moveTo(Game.flags[flag]);
     } else {
       var toRoom = Game.flags[flag].room.name;
       if (creep.room.name !== toRoom) {
-        const exitDir = Game.map.findExit('E8N44', toRoom);
+        const exitDir = Game.map.findExit(creep.room.name, toRoom);
         const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
         creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
       } else {
@@ -20,7 +17,9 @@ export const roleOutDig = (creep: Creep, flag: string) => {
         }
       }
     }
-  }
+  };
+
+  goout(creep);
 
   // var targets = creep.room.find(FIND_STRUCTURES, {
   //   filter: structure => {

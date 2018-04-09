@@ -32,6 +32,16 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
     }
   });
 
+  var targetsContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+    filter: structure => {
+      return (
+        (structure.structureType === STRUCTURE_SPAWN ||
+          structure.structureType === STRUCTURE_EXTENSION) &&
+        structure.energy < structure.energyCapacity
+      );
+    }
+  });
+
   function goout() {
     if (Game.flags[flag].room === undefined) {
       creep.moveTo(Game.flags[flag]);
@@ -39,7 +49,8 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
       var _toRoom = Game.flags[flag].room.name;
       //
       if (creep.room.name !== _toRoom) {
-        const exitDir = Game.map.findExit(creep.room, _toRoom);
+        creep.moveTo(Game.flags[flag]);
+        const exitDir = Game.map.findExit(creep.room.name, _toRoom);
         const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
         creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
       } else {
@@ -52,7 +63,7 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
           creep.say('😃');
         } else {
           var sources = creep.room.find(FIND_SOURCES);
-          if (sources[0].energy > 0) {
+          if (sources) {
             if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
               creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
             }
@@ -63,18 +74,23 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
   }
   const gohome = (creep: Creep) => {
     if (creep.room.name !== 'E8N44') {
+      creep.moveTo(Game.flags['Flag1']);
       // 回家
-      const exitDir2 = Game.map.findExit(Game.flags[flag].room.name, 'E8N44');
-      const exitToMyRoom = creep.pos.findClosestByRange(exitDir2);
-      creep.moveTo(exitToMyRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+      // const exitDir2 = Game.map.findExit(Game.flags[flag].room.name, 'E8N44');
+      // const exitToMyRoom = creep.pos.findClosestByRange(exitDir2);
+      // creep.moveTo(exitToMyRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
     } else {
-      if (flag === 'Flag3') {
+      if (flag === 'Flag3' || flag === 'Flag4') {
         var targetLink = Game.getObjectById('5ac212ecac37e47fd05a46a3');
         if (creep.transfer(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
         }
       } else {
-        if (targets.length > 0) {
+        if (targetsContainer) {
+          if (creep.transfer(targetsContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(targetsContainer, { visualizePathStyle: { stroke: '#ffffff' } });
+          }
+        } else if (targets.length > 0) {
           if (creep.transfer(targets[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
           }

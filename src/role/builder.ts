@@ -1,4 +1,4 @@
-export const roleBuilder = (creep: Creep) => {
+export const roleBuilder = (creep: Creep, flag: string) => {
   // 建造目标
   var targets;
   var targetsRoad = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
@@ -23,11 +23,10 @@ export const roleBuilder = (creep: Creep) => {
     }
   });
   var closestBadRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-    filter: structure => structure.hits < 1000 && structure.structureType === 'rampart'
+    filter: structure => structure.hits < 5000 && structure.structureType === 'rampart'
   });
   var closestRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
-    filter: structure =>
-      structure.hits < structure.hitsMax * 0.2 && structure.structureType === 'rampart'
+    filter: structure => structure.hits < 10000 && structure.structureType === 'rampart'
   });
   var fixtargets = '';
   if (closestBadRampart) {
@@ -118,31 +117,36 @@ export const roleBuilder = (creep: Creep) => {
     }
   };
 
-  const goout = (creep: Creep) => {
-    if (creep.room.name !== 'E8N43') {
-      const exitDir = Game.map.findExit(creep.room, 'E8N43');
-      const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
-      creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+  const goout = (creep: Creep, flag: string) => {
+    if (Game.flags[flag].room === undefined) {
+      creep.moveTo(Game.flags[flag]);
     } else {
-      if (targetsdrop) {
-        if (creep.carry.energy > 0) {
-          build(creep);
-        } else {
-          harvest(creep);
-        }
+      var toRoom = Game.flags[flag].room.name;
+      if (creep.room.name !== toRoom) {
+        const exitDir = Game.map.findExit(creep.room.name, toRoom);
+        const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
+        creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
       } else {
-        if (creep.carry.energy < creep.carryCapacity) {
-          harvest(creep);
+        if (targetsdrop) {
+          if (creep.carry.energy > 0) {
+            build(creep);
+          } else {
+            harvest(creep);
+          }
         } else {
-          build(creep);
+          if (creep.carry.energy < creep.carryCapacity) {
+            harvest(creep);
+          } else {
+            build(creep);
+          }
         }
       }
     }
   };
 
   // 其他屋子建造
-  if (creep.id === '5aca50b83e3b7013d0a66d6a' || creep.id === '5aca513e94121d186c2a8cc4') {
-    goout(creep);
+  if (flag !== undefined) {
+    goout(creep, flag);
   } else {
     // 我的屋子建造
     if (containersWithEnergy) {
