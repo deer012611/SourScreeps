@@ -33,10 +33,10 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
   });
 
   function goout() {
-    var _toRoom = Game.flags[flag].room.name;
     if (Game.flags[flag].room === undefined) {
       creep.moveTo(Game.flags[flag]);
     } else {
+      var _toRoom = Game.flags[flag].room.name;
       //
       if (creep.room.name !== _toRoom) {
         const exitDir = Game.map.findExit(creep.room, _toRoom);
