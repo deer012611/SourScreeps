@@ -137,7 +137,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'outTransporter-Flag3',
-      creepNum: 1,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -161,7 +161,12 @@ export default ErrorMapper.wrapLoop(() => {
       ]
     },
     {
-      creepName: 'solider',
+      creepName: 'solider-Flag1',
+      creepNum: 1,
+      creepProperty: [[WORK, MOVE, CLAIM, CLAIM], [WORK, MOVE, CLAIM, CLAIM]]
+    },
+    {
+      creepName: 'solider-Flag2',
       creepNum: 1,
       creepProperty: [[WORK, MOVE, CLAIM, CLAIM], [WORK, MOVE, CLAIM, CLAIM]]
     }
