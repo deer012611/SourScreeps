@@ -49,10 +49,10 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
       var _toRoom = Game.flags[flag].room.name;
       //
       if (creep.room.name !== _toRoom) {
-        creep.moveTo(Game.flags[flag]);
-        const exitDir = Game.map.findExit(creep.room.name, _toRoom);
-        const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
-        creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.moveTo(Game.flags[flag], { visualizePathStyle: { stroke: '#ffaa00' } });
+        // const exitDir = Game.map.findExit(creep.room.name, _toRoom);
+        // const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
+        // creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
       } else {
         var targetsdrop = creep.room.find(FIND_DROPPED_RESOURCES, {
           filter: i => i.amount > creep.carryCapacity

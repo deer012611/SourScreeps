@@ -190,6 +190,15 @@ export const roleBirth = () => {
       ]
     },
     {
+      creepName: 'builder-Flag4',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
       creepName: 'solider-Flag2',
       creepNum: 1,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
