@@ -118,7 +118,8 @@ export default ErrorMapper.wrapLoop(() => {
     if (
       creep.memory.role === 'outDig-Flag2' ||
       creep.memory.role === 'outDig-Flag3' ||
-      creep.memory.role === 'outDig-Flag4'
+      creep.memory.role === 'outDig-Flag4' ||
+      creep.memory.role === 'outDig-Flag5'
     ) {
       var digFlagPos = creep.name.split('-');
       roleOutDig(creep, digFlagPos[1]);
@@ -126,7 +127,8 @@ export default ErrorMapper.wrapLoop(() => {
     if (
       creep.memory.role === 'outTransporter-Flag2' ||
       creep.memory.role === 'outTransporter-Flag3' ||
-      creep.memory.role === 'outTransporter-Flag4'
+      creep.memory.role === 'outTransporter-Flag4' ||
+      creep.memory.role === 'outTransporter-Flag5'
     ) {
       var transFlagPos = creep.name.split('-');
       roleOutTransporter(creep, transFlagPos[1]);
@@ -134,7 +136,8 @@ export default ErrorMapper.wrapLoop(() => {
     if (
       creep.memory.role === 'solider-Flag2' ||
       creep.memory.role === 'solider-Flag3' ||
-      creep.memory.role === 'solider-Flag4'
+      creep.memory.role === 'solider-Flag4' ||
+      creep.memory.role === 'solider-Flag5'
     ) {
       var soliderFlagPos = creep.name.split('-');
       roleSolider(creep, soliderFlagPos[1]);

@@ -1,12 +1,12 @@
 export const roleBuilder = (creep: Creep, flag: string) => {
   // 建造目标
   var targets;
-  var targetsRoad = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+  var targetsRoad = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
     filter: structure => {
       return structure.structureType === 'road';
     }
   });
-  var targetsOther = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+  var targetsOther = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
     filter: structure => {
       return structure.structureType !== 'road' && structure.structureType !== 'constructionSite';
     }
@@ -17,15 +17,15 @@ export const roleBuilder = (creep: Creep, flag: string) => {
     targets = targetsRoad;
   }
   // 建造、修理战壕
-  var buildRampart = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES, {
+  var buildRampart = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
     filter: structure => {
       return structure.structureType === 'rampart';
     }
   });
-  var closestBadRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+  var closestBadRampart = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure => structure.hits < 5000 && structure.structureType === 'rampart'
   });
-  var closestRampart = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+  var closestRampart = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure => structure.hits < 10000 && structure.structureType === 'rampart'
   });
   var fixtargets = '';
@@ -118,10 +118,14 @@ export const roleBuilder = (creep: Creep, flag: string) => {
   };
 
   const goout = (creep: Creep, flag: string) => {
+    if (flag === 'Flag4') {
+      flag = 'Flag5';
+    }
     if (Game.flags[flag].room === undefined) {
       creep.moveTo(Game.flags[flag]);
     } else {
       var toRoom = Game.flags[flag].room.name;
+
       if (creep.room.name !== toRoom) {
         const exitDir = Game.map.findExit(creep.room.name, toRoom);
         const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);

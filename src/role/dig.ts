@@ -15,17 +15,17 @@ export const roleDig = (creep: Creep, mineID: string) => {
         creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
       }
     } else {
+      console.log(creep.name);
+      console.log(targetLink.energy, targetLink.energyCapacity);
       if (targetLink.energy < targetLink.energyCapacity) {
         if (creep.carry.energy < creep.carryCapacity) {
-          // var targetsdrop = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-          // if (targetsdrop) {
-          //   creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
-          // }
-          // else {
+          var targetsdrop = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
           if (sources.energy !== 0) {
             if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
               creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
             }
+          } else if (targetsdrop) {
+            creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
           } else if (targetContainer.energy !== 0) {
             if (creep.withdraw(targetContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
               creep.moveTo(targetContainer, { visualizePathStyle: { stroke: '#ffaa00' } });
@@ -37,11 +37,12 @@ export const roleDig = (creep: Creep, mineID: string) => {
             creep.moveTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
           }
         }
-      } else {
-        if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
-        }
       }
+      // else {
+      // if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
+      //   creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+      // }
+      // }
     }
   }
 };

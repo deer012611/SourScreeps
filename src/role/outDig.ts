@@ -5,9 +5,10 @@ export const roleOutDig = (creep: Creep, flag: string) => {
     } else {
       var toRoom = Game.flags[flag].room.name;
       if (creep.room.name !== toRoom) {
-        const exitDir = Game.map.findExit(creep.room.name, toRoom);
-        const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
-        creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.moveTo(Game.flags[flag]);
+        // const exitDir = Game.map.findExit(creep.room.name, toRoom);
+        // const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
+        // creep.moveTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
       } else {
         var sources = creep.room.find(FIND_SOURCES);
         if (sources[0].energy > 0) {

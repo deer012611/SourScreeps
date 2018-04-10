@@ -56,11 +56,10 @@ export const roleTransporter = (creep: Creep) => {
     }
   });
 
-  var containersNoEnergy = creep.room.find(FIND_STRUCTURES, {
+  var containersNoEnergy = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: i =>
-      i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] < i.storeCapacity * 0.8
+      i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] < i.storeCapacity * 0.95
   });
-
   // function harvest() {
   const harvest = (creep: Creep) => {
     // if (tombstoneTarget.length) {
@@ -114,9 +113,10 @@ export const roleTransporter = (creep: Creep) => {
       if (creep.transfer(targetTower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(targetTower[0], { visualizePathStyle: { stroke: '#ffffff' } });
       }
-    } else if (containersNoEnergy.length > 0) {
-      if (creep.transfer(containersNoEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(containersNoEnergy[0], { visualizePathStyle: { stroke: '#ffffff' } });
+    } else if (containersNoEnergy) {
+      console.log(1233);
+      if (creep.transfer(containersNoEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(containersNoEnergy, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     } else if (targetSTORAGE.length > 0) {
       if (creep.transfer(targetSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {

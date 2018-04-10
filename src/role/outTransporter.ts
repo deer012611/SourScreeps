@@ -1,5 +1,15 @@
 export const roleOutTransporter = (creep: Creep, flag: string) => {
+  var targetsBuild = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
+    filter: structure => {
+      return structure.structureType === 'road';
+    }
+  });
   var transporting = false;
+  // if (targetsBuild) {
+  //   transporting = false;
+  // } else {
+  //   transporting = true;
+  // }
   creep.memory.transporting = transporting;
   // memory
   if (!creep.memory.transporting && creep.carry.energy === 0) {
@@ -13,11 +23,7 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
   //
   var targets = creep.room.find(FIND_STRUCTURES, {
     filter: structure => {
-      return (
-        //   structure.structureType === STRUCTURE_SPAWN ||
-        // structure.structureType === STRUCTURE_EXTENSION ||
-        structure.structureType === STRUCTURE_STORAGE
-      );
+      return structure.structureType === STRUCTURE_STORAGE;
     }
   });
   var containersNoEnergy = creep.room.find(FIND_STRUCTURES, {
@@ -42,7 +48,7 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
     }
   });
 
-  function goout() {
+  function goout(creep) {
     if (Game.flags[flag].room === undefined) {
       creep.moveTo(Game.flags[flag]);
     } else {
@@ -80,7 +86,7 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
       // const exitToMyRoom = creep.pos.findClosestByRange(exitDir2);
       // creep.moveTo(exitToMyRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
     } else {
-      if (flag === 'Flag3' || flag === 'Flag4') {
+      if (flag !== 'Flag2') {
         var targetLink = Game.getObjectById('5ac212ecac37e47fd05a46a3');
         if (creep.transfer(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
@@ -102,6 +108,10 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
   // ----
   if (creep.memory.transporting) {
     goout(creep);
+  } else if (targetsBuild) {
+    if (creep.build(targetsBuild) === ERR_NOT_IN_RANGE) {
+      creep.moveTo(targetsBuild, { visualizePathStyle: { stroke: '#ffffff' } });
+    }
   } else {
     gohome(creep);
   }

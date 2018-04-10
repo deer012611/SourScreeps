@@ -38,11 +38,30 @@ export const roleBirth = () => {
     },
     {
       creepName: 'dig-2',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, WORK, MOVE],
         [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
+        [
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
       ]
     },
     {
@@ -57,7 +76,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'builder',
-      creepNum: 1,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -97,8 +116,17 @@ export const roleBirth = () => {
       ]
     },
     {
+      creepName: 'outDig-Flag5',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, WORK, MOVE],
+        [WORK, WORK, WORK, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+      ]
+    },
+    {
       creepName: 'outTransporter-Flag2',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -107,15 +135,29 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
           MOVE,
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
           MOVE,
           MOVE,
           MOVE,
           MOVE,
           WORK,
+          CARRY,
           CARRY,
           MOVE
         ]
@@ -123,7 +165,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'outTransporter-Flag3',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -132,15 +174,29 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
           MOVE,
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
           MOVE,
           MOVE,
           MOVE,
           MOVE,
           WORK,
+          CARRY,
           CARRY,
           MOVE
         ]
@@ -148,7 +204,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'outTransporter-Flag4',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -157,10 +213,56 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
           MOVE,
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          WORK,
+          CARRY,
+          CARRY,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'outTransporter-Flag5',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
           MOVE,
           MOVE,
           MOVE,
@@ -182,7 +284,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'builder-Flag3',
-      creepNum: 1,
+      creepNum: 0,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -191,7 +293,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'builder-Flag4',
-      creepNum: 1,
+      creepNum: 0,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -210,6 +312,11 @@ export const roleBirth = () => {
     },
     {
       creepName: 'solider-Flag4',
+      creepNum: 1,
+      creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
+    },
+    {
+      creepName: 'solider-Flag5',
       creepNum: 1,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     }
@@ -300,6 +407,9 @@ export const roleBirth = () => {
       case 'solider-Flag4':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
+      case 'solider-Flag5':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
       case 'outTransporter-Flag2':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
@@ -309,6 +419,9 @@ export const roleBirth = () => {
       case 'outTransporter-Flag4':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
+      case 'outTransporter-Flag5':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
       case 'outDig-Flag2':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
@@ -316,6 +429,9 @@ export const roleBirth = () => {
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
       case 'outDig-Flag4':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
+      case 'outDig-Flag5':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
     }
@@ -371,12 +487,15 @@ export const roleBirth = () => {
         _name === 'outDig-Flag2' ||
         _name === 'outDig-Flag3' ||
         _name === 'outDig-Flag4' ||
+        _name === 'outDig-Flag5' ||
         _name === 'outTransporter-Flag2' ||
         _name === 'outTransporter-Flag3' ||
         _name === 'outTransporter-Flag4' ||
+        _name === 'outTransporter-Flag5' ||
         _name === 'solider-Flag2' ||
         _name === 'solider-Flag3' ||
-        _name === 'solider-Flag4'
+        _name === 'solider-Flag4' ||
+        _name === 'solider-Flag5'
       ) {
         newName = a + '-' + Game.time;
       } else {
