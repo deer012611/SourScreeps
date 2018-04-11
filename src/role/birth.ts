@@ -66,7 +66,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'upgrader',
-      creepNum: 2,
+      creepNum: 3,
       creepProperty: [
         [WORK, CARRY, MOVE],
         // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -125,8 +125,47 @@ export const roleBirth = () => {
       ]
     },
     {
+      creepName: 'outTransporter-Flag1',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          WORK,
+          CARRY,
+          CARRY,
+          MOVE
+        ]
+      ]
+    },
+    {
       creepName: 'outTransporter-Flag2',
-      creepNum: 1,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -165,7 +204,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'outTransporter-Flag3',
-      creepNum: 1,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -181,8 +220,6 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           MOVE,
-          CARRY,
-          CARRY,
           CARRY,
           CARRY,
           CARRY,
@@ -204,7 +241,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'outTransporter-Flag4',
-      creepNum: 1,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -220,8 +257,6 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           MOVE,
-          CARRY,
-          CARRY,
           CARRY,
           CARRY,
           CARRY,
@@ -243,7 +278,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'outTransporter-Flag5',
-      creepNum: 1,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -257,8 +292,6 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           MOVE,
-          CARRY,
-          CARRY,
           CARRY,
           MOVE,
           MOVE,
@@ -410,6 +443,9 @@ export const roleBirth = () => {
       case 'solider-Flag5':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
+      case 'outTransporter-Flag1':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
       case 'outTransporter-Flag2':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
@@ -444,10 +480,12 @@ export const roleBirth = () => {
     p = _property[0];
     //
     var n = _.filter(Game.creeps, creep => creep.memory.role === _name);
-    console.log('Totle:  ' + _name + ' 🐒' + n.length + '/' + _num);
+    if (_num !== 0) {
+      console.log('Totle:  ' + _name + ' 🐒' + n.length + '/' + _num);
+    }
 
     // 判断是否5个 extionsion活跃
-    var extensions = Game.spawns['Spawn1'].room.find(FIND_MY_STRUCTURES, {
+    var extensions = Game.spawns['Spawn1'].room.cacheFind(FIND_MY_STRUCTURES, {
       filter: s => {
         return s.structureType === STRUCTURE_EXTENSION && s.isActive() === true;
       }
@@ -488,6 +526,7 @@ export const roleBirth = () => {
         _name === 'outDig-Flag3' ||
         _name === 'outDig-Flag4' ||
         _name === 'outDig-Flag5' ||
+        _name === 'outTransporter-Flag1' ||
         _name === 'outTransporter-Flag2' ||
         _name === 'outTransporter-Flag3' ||
         _name === 'outTransporter-Flag4' ||

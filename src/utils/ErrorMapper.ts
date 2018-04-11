@@ -1,4 +1,4 @@
-// @ts-ignore
+// tslint:disable:no-conditional-assignment
 import { SourceMapConsumer } from 'source-map';
 
 export class ErrorMapper {

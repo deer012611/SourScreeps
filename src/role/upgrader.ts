@@ -13,62 +13,51 @@ export const roleUpgrader = (creep: Creep) => {
     creep.say('⚡ upgrade');
   }
 
-  var targetsSTORAGE = creep.room.find(FIND_STRUCTURES, {
-    filter: structure => {
-      return (
-        //   structure.structureType === STRUCTURE_SPAWN ||
-        // structure.structureType === STRUCTURE_EXTENSION ||
-        structure.structureType === STRUCTURE_STORAGE
-      );
-    }
-  });
-  //
-  console.log(targetsSTORAGE);
+  var targetSTORAGE = creep.room.storage;
   // 将稀有金属运送到storage
   // if (targetsSTORAGE.length > 0 ) {
   //   if (creep.transfer(targetsSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-  //     creep.moveTo(targetsSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
+  //     creep.travelTo(targetsSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
   //   } else if (creep.transfer(targetsSTORAGE[0], RESOURCE_GHODIUM_OXIDE) === ERR_NOT_IN_RANGE) {
-  //     creep.moveTo(targetsSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
+  //     creep.travelTo(targetsSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
   //   }
   // }
-  //
+  // if (targetSTORAGE.energy > targetSTORAGE.energyCapacity * 0.4)
   if (creep.memory.upgrading) {
     if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-      creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });
+      creep.travelTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });
     }
   } else {
     if (containersWithEnergy) {
       // 如果container里边有能量->container
       if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.travelTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
       }
-    } else {
-      var targets = creep.room.find(FIND_DROPPED_RESOURCES);
-      if (targetsdrop) {
-        creep.moveTo(targetsdrop);
-        creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
-        creep.say('😃');
-      } else if (targets.length) {
-        creep.moveTo(targets[0]);
-        creep.pickup(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
-        creep.say('😃');
-      } else if (containersWithEnergy) {
-        if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
-          creep.say('😍');
-        }
-      } else if (targetLink.energy > 0) {
-        if (creep.withdraw(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(targetLink, { visualizePathStyle: { stroke: '#ffaa00' } });
-          creep.say('Link');
-        }
-      } else {
-        var sources = creep.room.find(FIND_SOURCES);
-        if (creep.harvest(sources[1]) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(sources[1], { visualizePathStyle: { stroke: '#ffaa00' } });
-        }
+    } else if (targetLink.energy > 0) {
+      if (creep.withdraw(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.say('Link');
+      }
+    } else if (targetSTORAGE) {
+      if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
       }
     }
+    // else {
+    //    else if (targetSTORAGE.energy > targetSTORAGE.energyCapacity * 0.4) {
+    //     if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+    //       creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
+    //     }
+    //   } else if (targetsdrop) {
+    //     creep.travelTo(targetsdrop);
+    //     creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
+    //     creep.say('😃');
+    //   } else {
+    //     var sources = creep.room.cacheFind(FIND_SOURCES);
+    //     if (creep.harvest(sources[1]) === ERR_NOT_IN_RANGE) {
+    //       creep.travelTo(sources[1], { visualizePathStyle: { stroke: '#ffaa00' } });
+    //     }
+    //   }
+    // }
   }
 };

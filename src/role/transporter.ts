@@ -10,25 +10,13 @@ export const roleTransporter = (creep: Creep) => {
     creep.memory.transporting = false;
     creep.say('⚡');
   }
-  // Link能量
-  var targetLink = Game.getObjectById('5ac2082a8f54c347c5c42679');
-  // source内存
-  var source = creep.pos.findClosestByRange(FIND_SOURCES);
-  creep.memory.source = source;
-
-  // var tombstoneTarget = creep.room.find(FIND_TOMBSTONES);
+  // 定义
+  var targetLink = creep.room.links;
+  var targetSOURCE = creep.room.sources;
   var carryTotal = creep.carryCapacity;
-  var targetsdrop = creep.room.find(FIND_DROPPED_RESOURCES, {
+  var targetSTORAGE = creep.room.storage;
+  var targetsdrop = creep.room.cacheFind(FIND_DROPPED_RESOURCES, {
     filter: i => i.amount > carryTotal
-  });
-  var storageWithEnergy = creep.room.find(FIND_STRUCTURES, {
-    filter: i => i.structureType === STRUCTURE_STORAGE
-  });
-  var containersWithEnergy = creep.room.find(FIND_STRUCTURES, {
-    filter: i =>
-      i.structureType === STRUCTURE_CONTAINER &&
-      i.store[RESOURCE_ENERGY] > carryTotal &&
-      (i.id === '5ab72c0441601c4096a94ad8' || i.id === '5ab6bf48458f8a49cb1d16e6')
   });
   var targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: structure => {
@@ -39,65 +27,50 @@ export const roleTransporter = (creep: Creep) => {
       );
     }
   });
-  var targetTower = creep.room.find(FIND_STRUCTURES, {
+  var targetTower = creep.room.cacheFind(FIND_STRUCTURES, {
     filter: structure => {
       return (
         structure.structureType === STRUCTURE_TOWER && structure.energy < structure.energyCapacity
       );
     }
   });
-  var targetSTORAGE = creep.room.find(FIND_STRUCTURES, {
-    filter: structure => {
-      return (
-        //   structure.structureType === STRUCTURE_SPAWN ||
-        // structure.structureType === STRUCTURE_EXTENSION ||
-        structure.structureType === STRUCTURE_STORAGE
-      );
-    }
-  });
 
   var containersNoEnergy = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: i =>
-      i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] < i.storeCapacity * 0.95
+      i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] < i.storeCapacity * 0.6
   });
   // function harvest() {
   const harvest = (creep: Creep) => {
-    // if (tombstoneTarget.length) {
-    //   console.log('☠️' + tombstoneTarget);
-    //   creep.moveTo(tombstoneTarget[0]);
-    //   creep.pickup(tombstoneTarget[0], { visualizePathStyle: { stroke: '#ffffff' } });
-    // } else
-    // if (storageWithEnergy) {
-    //   if (creep.withdraw(storageWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    //     creep.moveTo(storageWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
-    //     creep.say('😍');
-    //   }
-    // } else
-    if (targetLink.energy > 0) {
-      if (creep.withdraw(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(targetLink, { visualizePathStyle: { stroke: '#ffaa00' } });
+    if (targetLink[0].energy > 0) {
+      if (creep.withdraw(targetLink[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetLink[0], { visualizePathStyle: { stroke: '#ffaa00' } });
         creep.say('Link');
       }
+    } else if (targetSTORAGE) {
+      if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.say('😍');
+      }
     } else if (targetsdrop.length) {
-      creep.moveTo(targetsdrop[0]);
+      creep.travelTo(targetsdrop[0]);
       creep.pickup(targetsdrop[0], { visualizePathStyle: { stroke: '#ffffff' } });
       creep.say('😃');
     } else {
       // else if (containersWithEnergy !== undefined) {
       //   if (creep.withdraw(containersWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-      //     creep.moveTo(containersWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+      //     creep.travelTo(containersWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
       //     creep.say('😍');
       //   }
       // }
       // else
       // if (storageWithEnergy) {
       //   if (creep.withdraw(storageWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-      //     creep.moveTo(storageWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+      //     creep.travelTo(storageWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
       //     creep.say('😍');
       //   }
       // } else if (creep.memory.source) {
-      if (creep.harvest(creep.memory.source) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.memory.source, { visualizePathStyle: { stroke: '#ffaa00' } });
+      if (creep.harvest(targetSOURCE) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetSOURCE, { visualizePathStyle: { stroke: '#ffaa00' } });
       }
       // }
     }
@@ -107,30 +80,29 @@ export const roleTransporter = (creep: Creep) => {
   const transport = (creep: Creep) => {
     if (targets) {
       if (creep.transfer(targets, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+        creep.travelTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+      }
+    } else if (containersNoEnergy) {
+      if (creep.transfer(containersNoEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(containersNoEnergy, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     } else if (targetTower.length > 0) {
       if (creep.transfer(targetTower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(targetTower[0], { visualizePathStyle: { stroke: '#ffffff' } });
+        creep.travelTo(targetTower[0], { visualizePathStyle: { stroke: '#ffffff' } });
       }
-    } else if (containersNoEnergy) {
-      console.log(1233);
-      if (creep.transfer(containersNoEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(containersNoEnergy, { visualizePathStyle: { stroke: '#ffffff' } });
-      }
-    } else if (targetSTORAGE.length > 0) {
-      if (creep.transfer(targetSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(targetSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
+    } else if (targetSTORAGE) {
+      if (creep.transfer(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     } else {
       // else
       // else if (targetsTower.length > 0) {
       //   if (creep.transfer(targetsTower[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-      //     creep.moveTo(targetsTower[0], { visualizePathStyle: { stroke: '#ffffff' } });
+      //     creep.travelTo(targetsTower[0], { visualizePathStyle: { stroke: '#ffffff' } });
       //   }
       // }
       if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });
+        creep.travelTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     }
   };
@@ -139,6 +111,12 @@ export const roleTransporter = (creep: Creep) => {
   if (creep.memory.transporting) {
     harvest(creep);
   } else {
-    transport(creep);
+    if (targetLink[0].energy > 0) {
+      if (creep.transfer(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffffff' } });
+      }
+    } else {
+      transport(creep);
+    }
   }
 };

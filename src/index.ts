@@ -1,4 +1,4 @@
-import { ErrorMapper } from './utils';
+import { ErrorMapper } from './utils/ErrorMapper';
 import {
   roleBirth,
   roleBuilder,
@@ -10,10 +10,26 @@ import {
   roleOutTransporter,
   roleSolider
 } from './role';
+import { Emoji } from './utils/Emoji';
+import { getUsername } from './utils';
 import { Grafana } from './mod/Grafana';
 // import { spawn } from 'child_process';
 
+const Root = (): void => {
+  if (_.isUndefined(global.isRoot)) {
+    console.log(Emoji.reload, 'Code Reloading ...');
+    global._ME = getUsername();
+    // Extend game prototypes
+    require('./prototypes');
+    // Extend functions
+    require('./global');
+    // Checkpoint
+    global.isRoot = true;
+  }
+};
+
 export default ErrorMapper.wrapLoop(() => {
+  Root();
   // 清理缓存
   for (var name in Memory.creeps) {
     if (!Game.creeps[name]) {
@@ -125,6 +141,7 @@ export default ErrorMapper.wrapLoop(() => {
       roleOutDig(creep, digFlagPos[1]);
     }
     if (
+      creep.memory.role === 'outTransporter-Flag1' ||
       creep.memory.role === 'outTransporter-Flag2' ||
       creep.memory.role === 'outTransporter-Flag3' ||
       creep.memory.role === 'outTransporter-Flag4' ||

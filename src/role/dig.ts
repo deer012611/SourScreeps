@@ -12,35 +12,38 @@ export const roleDig = (creep: Creep, mineID: string) => {
   function digLinkMiner(creep, sources) {
     if (creep.memory.role === 'dig-1') {
       if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
       }
     } else {
-      console.log(creep.name);
-      console.log(targetLink.energy, targetLink.energyCapacity);
       if (targetLink.energy < targetLink.energyCapacity) {
         if (creep.carry.energy < creep.carryCapacity) {
           var targetsdrop = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
           if (sources.energy !== 0) {
+            console.log(1);
             if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
-              creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+              creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
             }
           } else if (targetsdrop) {
+            console.log(2);
             creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
           } else if (targetContainer.energy !== 0) {
+            console.log(3);
             if (creep.withdraw(targetContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-              creep.moveTo(targetContainer, { visualizePathStyle: { stroke: '#ffaa00' } });
+              creep.travelTo(targetContainer, { visualizePathStyle: { stroke: '#ffaa00' } });
             }
+          } else {
+            console.log(4);
           }
           // }
         } else {
           if (creep.transfer(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
+            creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
           }
         }
       }
       // else {
       // if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
-      //   creep.moveTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+      //   creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
       // }
       // }
     }
