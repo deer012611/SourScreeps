@@ -1,7 +1,7 @@
 export const roleOutTransporter = (creep: Creep, flag: string) => {
   var targetsBuild = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
     filter: structure => {
-      return structure.structureType === 'road';
+      return structure.structureType === 'road' || structure.structureType === 'container';
     }
   });
   var transporting = false;
@@ -42,6 +42,10 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
       );
     }
   });
+  var containersWithEnergy = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    filter: i =>
+      i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] > creep.carryCapacity
+  });
 
   function goout(creep) {
     if (Game.flags[flag].room === undefined) {
@@ -62,6 +66,11 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
           creep.travelTo(targetsdrop[0]);
           creep.pickup(targetsdrop[0], { visualizePathStyle: { stroke: '#ffffff' } });
           creep.say('😃');
+        } else if (containersWithEnergy) {
+          // 如果container里边有能量->container
+          if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
+          }
         } else {
           var sources = creep.room.cacheFind(FIND_SOURCES);
           if (sources) {
@@ -104,9 +113,9 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
           }
         }
       } else {
-        if (targets) {
-          if (creep.transfer(targets, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+        if (targetsTower) {
+          if (creep.transfer(targetsTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(targetsTower, { visualizePathStyle: { stroke: '#ffffff' } });
           }
         } else if (targetStorage.length > 0) {
           if (creep.transfer(targetStorage[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
@@ -120,11 +129,12 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
   if (creep.memory.transporting) {
     goout(creep);
   } else {
-    // else if (targetsBuild) {
-    //   if (creep.build(targetsBuild) === ERR_NOT_IN_RANGE) {
-    //     creep.travelTo(targetsBuild, { visualizePathStyle: { stroke: '#ffffff' } });
-    //   }
-    // }
-    gohome(creep);
+    if (targetsBuild) {
+      if (creep.build(targetsBuild) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetsBuild, { visualizePathStyle: { stroke: '#ffffff' } });
+      }
+    } else {
+      gohome(creep);
+    }
   }
 };

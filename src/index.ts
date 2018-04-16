@@ -104,7 +104,15 @@ export default ErrorMapper.wrapLoop(() => {
       });
       creep.repair(closestRoad);
     };
+    const checkcontainer = creep => {
+      var closestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        filter: structure =>
+          structure.hits < structure.hitsMax * 0.6 && structure.structureType === 'container'
+      });
+      creep.repair(closestContainer);
+    };
     checkroad(creep);
+    checkcontainer(creep);
     //
 
     if (creep.memory.role === 'upgrader') {
