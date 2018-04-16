@@ -1,3 +1,5 @@
+import { getRooms } from '../utils';
+import { RoomType } from '../enums/room';
 export const roleBirth = () => {
   var creep = [];
   creep = [
@@ -56,7 +58,11 @@ export const roleBirth = () => {
           WORK,
           WORK,
           WORK,
+          WORK,
+          WORK,
           CARRY,
+          MOVE,
+          MOVE,
           MOVE,
           MOVE,
           MOVE,
@@ -66,7 +72,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'upgrader',
-      creepNum: 3,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -85,8 +91,11 @@ export const roleBirth = () => {
     },
     {
       creepName: 'engineer',
-      creepNum: 1,
-      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE]]
+      creepNum: 3,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, CARRY, CARRY, MOVE, MOVE, MOVE]
+      ]
     },
     {
       creepName: 'outDig-Flag2',
@@ -141,6 +150,7 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
           MOVE,
           CARRY,
           CARRY,
@@ -170,6 +180,7 @@ export const roleBirth = () => {
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
         [
+          CARRY,
           CARRY,
           CARRY,
           CARRY,
@@ -224,6 +235,7 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
           MOVE,
           MOVE,
           MOVE,
@@ -261,6 +273,7 @@ export const roleBirth = () => {
           CARRY,
           CARRY,
           CARRY,
+          CARRY,
           MOVE,
           MOVE,
           MOVE,
@@ -283,6 +296,7 @@ export const roleBirth = () => {
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
         [
+          CARRY,
           CARRY,
           CARRY,
           CARRY,
@@ -369,6 +383,52 @@ export const roleBirth = () => {
       }
     ];
   }
+  // 如果controller时间还大于2000 就不要生产solider
+  // if ( ) {
+  // if (Game.flags['Flag2'].room.controller.reservation.ticksToEnd < 2500) {
+  //   creep.push([
+  //     {
+  //       creepName: 'solider-Flag2',
+  //       creepNum: 1,
+  //       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
+  //     }
+  //   ]);
+  // }
+  // }
+  // if (Game.flags['Flag3'].room) {
+  //   if (Game.flags['Flag3'].room.controller.reservation.ticksToEnd < 2500) {
+  //     creep.push([
+  //       {
+  //         creepName: 'solider-Flag3',
+  //         creepNum: 1,
+  //         creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
+  //       }
+  //     ]);
+  //   }
+  // }
+  // if (Game.flags['Flag4'].room) {
+  //   if (Game.flags['Flag4'].room.controller.reservation.ticksToEnd < 2500) {
+  //     creep.push([
+  //       {
+  //         creepName: 'solider-Flag4',
+  //         creepNum: 1,
+  //         creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
+  //       }
+  //     ]);
+  //   }
+  // }
+  // if (Game.flags['Flag5'].room) {
+  //   if (Game.flags['Flag5'].room.controller.reservation.ticksToEnd < 2500) {
+  //     creep.push([
+  //       {
+  //         creepName: 'solider-Flag5',
+  //         creepNum: 1,
+  //         creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
+  //       }
+  //     ]);
+  //   }
+  // }
+
   // 看transporter的数量小于3，就先生产transporter
   var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
   if (transnum.length < 2) {

@@ -1,5 +1,5 @@
 export const roleOutDig = (creep: Creep, flag: string) => {
-  const goout = (creep: Creep) => {
+  const goout = (creep: Creep, flag: string) => {
     if (Game.flags[flag].room === undefined) {
       creep.travelTo(Game.flags[flag]);
     } else {
@@ -11,7 +11,7 @@ export const roleOutDig = (creep: Creep, flag: string) => {
         // creep.travelTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
       } else {
         var sources = creep.room.cacheFind(FIND_SOURCES);
-        if (sources[0].energy > 0) {
+        if (sources[0]) {
           if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
             creep.travelTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
           }
@@ -20,10 +20,7 @@ export const roleOutDig = (creep: Creep, flag: string) => {
     }
   };
 
-  if (flag === 'Flag2') {
-  } else {
-    goout(creep);
-  }
+  goout(creep, flag);
 
   // var targets = creep.room.cacheFind(FIND_STRUCTURES, {
   //   filter: structure => {

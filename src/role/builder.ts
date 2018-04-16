@@ -43,8 +43,9 @@ export const roleBuilder = (creep: Creep, flag: string) => {
   var targetsdrop = creep.room.cacheFind(FIND_DROPPED_RESOURCES, {
     filter: i => i.amount > creep.carryCapacity
   });
-  var containersWithEnergy = creep.room.cacheFind(FIND_STRUCTURES, {
-    filter: i => i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] > 0
+  var containersWithEnergy = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+    filter: i =>
+      i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] > creep.carryCapacity
   });
   var closestOtherDamagedStructure = creep.room.cacheFind(FIND_STRUCTURES, {
     filter: structure =>
@@ -62,16 +63,16 @@ export const roleBuilder = (creep: Creep, flag: string) => {
       if (creep.build(buildRampart) === ERR_NOT_IN_RANGE) {
         creep.travelTo(buildRampart, { visualizePathStyle: { stroke: '#ffffff' } });
       }
-    } else if (targets) {
-      if (creep.build(targets) === ERR_NOT_IN_RANGE) {
-        creep.travelTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
-      }
     } else if (fixtargets) {
       if (creep.repair(fixtargets) === ERR_NOT_IN_RANGE) {
         creep.travelTo(fixtargets, {
           visualizePathStyle: { stroke: '#00ff00' }
         });
         creep.say('🔧');
+      }
+    } else if (targets) {
+      if (creep.build(targets) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     } else {
       console.log('nothing to build -> fix');
@@ -100,15 +101,15 @@ export const roleBuilder = (creep: Creep, flag: string) => {
 
   const harvest = (creep: Creep) => {
     if (creep.carry.energy < creep.carryCapacity) {
-      if (targetsdrop.length) {
+      if (containersWithEnergy) {
+        // 如果container里边有能量->container
+        if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.travelTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
+        }
+      } else if (targetsdrop.length) {
         creep.travelTo(targetsdrop[0]);
         creep.pickup(targetsdrop[0], { visualizePathStyle: { stroke: '#ffffff' } });
         creep.say('😃');
-      } else if (containersWithEnergy[0] !== undefined) {
-        // 如果container里边有能量->container
-        if (creep.withdraw(containersWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.travelTo(containersWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });
-        }
       } else {
         if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
           creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });

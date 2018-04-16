@@ -82,9 +82,16 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
       // creep.travelTo(exitToMyRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
     } else {
       if (flag !== 'Flag2' && flag !== 'Flag1') {
-        var targetLink = Game.getObjectById('5ac212ecac37e47fd05a46a3');
-        if (creep.transfer(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
+        var targetLinkWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
+        var targetLinkSource = Game.getObjectById('5ac212ecac37e47fd05a46a3');
+        if (targetLinkWall.energy !== targetLinkWall.energyCapacity) {
+          if (creep.transfer(targetLinkWall, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(targetLinkWall, { visualizePathStyle: { stroke: '#ffffff' } });
+          }
+        } else {
+          if (creep.transfer(targetLinkSource, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(targetLinkSource, { visualizePathStyle: { stroke: '#ffffff' } });
+          }
         }
       } else if (flag === 'Flag1') {
         if (targets) {
@@ -109,18 +116,15 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
       }
     }
   };
-
   // ----
-  if (flag === 'Flag2') {
+  if (creep.memory.transporting) {
+    goout(creep);
   } else {
-    if (creep.memory.transporting) {
-      goout(creep);
-    } else if (targetsBuild) {
-      if (creep.build(targetsBuild) === ERR_NOT_IN_RANGE) {
-        creep.travelTo(targetsBuild, { visualizePathStyle: { stroke: '#ffffff' } });
-      }
-    } else {
-      gohome(creep);
-    }
+    // else if (targetsBuild) {
+    //   if (creep.build(targetsBuild) === ERR_NOT_IN_RANGE) {
+    //     creep.travelTo(targetsBuild, { visualizePathStyle: { stroke: '#ffffff' } });
+    //   }
+    // }
+    gohome(creep);
   }
 };

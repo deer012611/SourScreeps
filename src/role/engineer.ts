@@ -1,6 +1,5 @@
 export const roleEngineer = (creep: Creep) => {
   // memory
-
   var engineering = false;
   creep.memory.engineering = engineering;
 
@@ -17,7 +16,7 @@ export const roleEngineer = (creep: Creep) => {
   // 检查维修
   // 修战壕
   var closestBadRampart = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-    filter: structure => structure.hits < 4000 && structure.structureType === 'rampart'
+    filter: structure => structure.hits < 5000 && structure.structureType === 'rampart'
   });
   var closestRampart = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: structure => structure.hits < 20000 && structure.structureType === 'rampart'

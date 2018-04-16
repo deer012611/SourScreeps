@@ -42,14 +42,16 @@ export default ErrorMapper.wrapLoop(() => {
   roleBirth();
 
   // Link
-  const linkFrom = Game.getObjectById('5ac212ecac37e47fd05a46a3');
-  // const linkTo = linkFrom.pos.findInRange(FIND_MY_STRUCTURES, 2, {
-  //   filter: { structureType: STRUCTURE_LINK }
-  // });
+  const linkFromWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
+  const linkFromSource = Game.getObjectById('5ac212ecac37e47fd05a46a3');
+
   var linkTo = Game.getObjectById('5ac2082a8f54c347c5c42679');
 
-  if (linkFrom.energy === linkFrom.energyCapacity && linkTo.energy === 0) {
-    linkFrom.transferEnergy(linkTo, 800);
+  if (linkFromWall.energy === linkFromWall.energyCapacity && linkTo.energy === 0) {
+    linkFromWall.transferEnergy(linkTo, 800);
+  }
+  if (linkFromSource.energy === linkFromSource.energyCapacity && linkTo.energy === 0) {
+    linkFromSource.transferEnergy(linkTo, 800);
   }
 
   // 防御塔
