@@ -43,24 +43,22 @@ export const roleTransporter = (creep: Creep) => {
   });
   // function harvest() {
   const harvest = (creep: Creep) => {
-    if (targetLink[0]) {
-      if (targetLink[0].energy > 0) {
-        if (creep.withdraw(targetLink[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.travelTo(targetLink[0], { visualizePathStyle: { stroke: '#ffaa00' } });
-          creep.say('Link');
-        }
+    if (targetLink[0] !== undefined && targetLink[0].energy > 0) {
+      if (creep.withdraw(targetLink[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetLink[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.say('Link');
       }
     } else if (targetsdrop.length) {
+      creep.travelTo(targetsdrop[0]);
+      creep.pickup(targetsdrop[0], { visualizePathStyle: { stroke: '#ffffff' } });
+      creep.say('😃');
+    } else if (targetSOURCE) {
       // else if (targetSTORAGE) {
       //   if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
       //     creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
       //     creep.say('😍');
       //   }
       // }
-      creep.travelTo(targetsdrop[0]);
-      creep.pickup(targetsdrop[0], { visualizePathStyle: { stroke: '#ffffff' } });
-      creep.say('😃');
-    } else if (targetSOURCE) {
       // else if (containersWithEnergy !== undefined) {
       //   if (creep.withdraw(containersWithEnergy[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
       //     creep.travelTo(containersWithEnergy[0], { visualizePathStyle: { stroke: '#ffaa00' } });

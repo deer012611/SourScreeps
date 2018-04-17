@@ -150,8 +150,9 @@ export default ErrorMapper.wrapLoop(() => {
     // }
 
     //
-    if (creep.memory.role === 'upgrader') {
-      roleUpgrader(creep);
+    if (creep.memory.role === 'upgrader' || creep.memory.role === 'upgrader-Flag6') {
+      var upgraderFlagPos = creep.name.split('-');
+      roleUpgrader(creep, upgraderFlagPos[1]);
     }
     if (creep.memory.role === 'builder') {
       roleBuilder(creep);

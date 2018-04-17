@@ -379,23 +379,54 @@ export const roleBirth = () => {
     },
     {
       creepName: 'solider-Flag3',
-      creepNum: 0,
+      creepNum: 1,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     },
     {
       creepName: 'solider-Flag4',
-      creepNum: 0,
+      creepNum: 1,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     },
     {
       creepName: 'solider-Flag5',
-      creepNum: 0,
+      creepNum: 1,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     },
     {
       creepName: 'solider-Flag6',
       creepNum: 0,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM], [WORK, MOVE, MOVE, CLAIM]]
+    },
+    {
+      creepName: 'upgrader-Flag6',
+      creepNum: 3,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
+        [
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
+      ]
     }
   ];
   // 看dig的数量小于3，就先生产dig
@@ -521,48 +552,51 @@ export const roleBirth = () => {
       case 'outDig-Flag5':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
+      case 'upgrader-Flag6':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
     }
   }
   // Spawn2造兵
-  var creep2 = [];
-  creep2 = [
-    {
-      creepName: 'transporter-spawn2',
-      creepNum: 2,
-      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
-    },
-    {
-      creepName: 'dig-spawn2-1',
-      creepNum: 2,
-      creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
-    },
-    {
-      creepName: 'dig-spawn2-2',
-      creepNum: 2,
-      creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
-    },
-    {
-      creepName: 'upgrader-spawn2',
-      creepNum: 2,
-      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
-    }
-  ];
-  for (var j = 0; j < creep2.length; j++) {
-    switch (creep2[j].creepName) {
-      case 'transporter-spawn2':
-        birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
-        break;
-      case 'dig-spawn2-1':
-        birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
-        break;
-      case 'dig-spawn2-2':
-        birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
-        break;
-      case 'upgrader-spawn2':
-        birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
-        break;
-    }
-  }
+  // var creep2 = [];
+  // creep2 = [
+  // {
+  //   creepName: 'transporter-spawn2',
+  //   creepNum: 2,
+  //   creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
+  // },
+  // {
+  //   creepName: 'dig-spawn2-1',
+  //   creepNum: 2,
+  //   creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
+  // },
+  // {
+  //   creepName: 'dig-spawn2-2',
+  //   creepNum: 2,
+  //   creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
+  // },
+  // {
+  //   creepName: 'upgrader-spawn2',
+  //   creepNum: 2,
+  //   creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
+  // }
+  // ];
+  // for (var j = 0; j < creep2.length; j++) {
+  //   switch (creep2[j].creepName) {
+  //     case 'transporter-spawn2':
+  //       birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+  //       break;
+  //     case 'dig-spawn2-1':
+  //       birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+  //       break;
+  //     case 'dig-spawn2-2':
+  //       birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+  //       break;
+  //     case 'upgrader-spawn2':
+  //       birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+  //       break;
+  //   }
+  // }
 
   function birth(_name, _num, _property, spawn) {
     var a = '';
@@ -631,7 +665,8 @@ export const roleBirth = () => {
         _name === 'transporter-spawn2' ||
         _name === 'dig-spawn2-1' ||
         _name === 'dig-spawn2-2' ||
-        _name === 'upgrader-spawn2'
+        _name === 'upgrader-spawn2' ||
+        _name === 'upgrader-Flag6'
       ) {
         newName = a + '-' + Game.time;
       } else {
@@ -643,7 +678,7 @@ export const roleBirth = () => {
         Game.spawns['Spawn1'].spawnCreep(p, newName, {
           memory: { role: a }
         });
-      } else {
+      } else if (Game.spawns[spawn]) {
         Game.spawns[spawn].spawnCreep(p, newName, {
           memory: { role: a }
         });
