@@ -1,10 +1,15 @@
 export const roleDig = (creep: Creep, mineID: string) => {
+  console.log(creep, mineID);
   var sources = Game.getObjectById(mineID);
   var targetLink = Game.getObjectById('5ac212ecac37e47fd05a46a3');
   var targetContainer = Game.getObjectById('5aca5db82657b65071649939');
 
   const digLinkMiner = (creep: Creep, sources) => {
-    if (creep.memory.role === 'dig-1') {
+    if (
+      creep.memory.role === 'dig-1' ||
+      creep.memory.role === 'dig-spawn2-1' ||
+      creep.memory.role === 'dig-spawn2-2'
+    ) {
       if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
         creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
       }
@@ -39,6 +44,8 @@ export const roleDig = (creep: Creep, mineID: string) => {
     }
   };
   if (creep.memory.role === 'dig-2') {
+    digLinkMiner(creep, sources);
+  } else if (creep.memory.role === 'dig-spawn2-1' || creep.memory.role === 'dig-spawn2-2') {
     digLinkMiner(creep, sources);
   } else if (creep.memory.role === 'dig-1') {
     var sourcesLinkMiner = Game.getObjectById('59f1a38382100e1594f3ba5d');

@@ -14,6 +14,7 @@ export const roleUpgrader = (creep: Creep) => {
   }
 
   var targetSTORAGE = creep.room.storage;
+  var sources = creep.room.cacheFind(FIND_SOURCES);
   // 将稀有金属运送到storage
   // if (targetsSTORAGE.length > 0 ) {
   //   if (creep.transfer(targetsSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
@@ -41,6 +42,10 @@ export const roleUpgrader = (creep: Creep) => {
     } else if (targetSTORAGE) {
       if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
+      }
+    } else {
+      if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
       }
     }
     // else {

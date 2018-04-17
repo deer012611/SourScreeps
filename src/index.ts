@@ -114,7 +114,42 @@ export default ErrorMapper.wrapLoop(() => {
     checkroad(creep);
     checkcontainer(creep);
     //
+    // var creepRole = creep.name.split('-')[0];
+    // var creepType = creep.name.split('-')[1];
+    //
+    // if (creepRole === 'upgrader') {
+    //   roleUpgrader(creep);
+    // }
+    // if (creepRole === 'builder') {
+    //   roleBuilder(creep);
+    // }
+    // if (creepRole === 'transporter') {
+    //   roleTransporter(creep);
+    // }
+    // if (creepRole === 'dig-1' || creepRole === 'dig-2') {
+    //   if (creepType === '1') {
+    //     roleDig(creep, '59f1a38382100e1594f3ba5d');
+    //   } else if (creepType === '2') {
+    //     roleDig(creep, '59f1a38382100e1594f3ba5e');
+    //   }
+    // }
+    // if (creepRole === 'builder') {
+    //   roleBuilder(creep, creepType);
+    // }
+    // if (creepRole === 'outDig') {
+    //   roleOutDig(creep, creepType);
+    // }
+    // if (creepRole === 'outTransporter') {
+    //   roleBuilder(creep, creepType);
+    // }
+    // if (creepRole === 'solider') {
+    //   roleBuilder(creep, creepType);
+    // }
+    // if (creepRole === 'engineer') {
+    //   roleEngineer(creep);
+    // }
 
+    //
     if (creep.memory.role === 'upgrader') {
       roleUpgrader(creep);
     }
@@ -136,7 +171,8 @@ export default ErrorMapper.wrapLoop(() => {
     if (
       creep.memory.role === 'builder-Flag2' ||
       creep.memory.role === 'builder-Flag3' ||
-      creep.memory.role === 'builder-Flag4'
+      creep.memory.role === 'builder-Flag4' ||
+      creep.memory.role === 'builder-Flag6'
     ) {
       var buildFlagPos = creep.name.split('-');
       roleBuilder(creep, buildFlagPos[1]);
@@ -164,13 +200,31 @@ export default ErrorMapper.wrapLoop(() => {
       creep.memory.role === 'solider-Flag2' ||
       creep.memory.role === 'solider-Flag3' ||
       creep.memory.role === 'solider-Flag4' ||
-      creep.memory.role === 'solider-Flag5'
+      creep.memory.role === 'solider-Flag5' ||
+      creep.memory.role === 'solider-Flag6'
     ) {
       var soliderFlagPos = creep.name.split('-');
       roleSolider(creep, soliderFlagPos[1]);
     }
     if (creep.memory.role === 'engineer') {
       roleEngineer(creep);
+    }
+    // spawn2
+    if (creep.memory.role === 'transporter-spawn2') {
+      var transspawn = creep.name.split('-');
+      roleTransporter(creep, transspawn[1]);
+    }
+    if (creep.memory.role === 'upgrader-spawn2') {
+      var upgradspawn = creep.name.split('-');
+      roleUpgrader(creep, upgradspawn[1]);
+    }
+    if (creep.memory.role === 'dig-spawn2-1' || creep.memory.role === 'dig-spawn2-2') {
+      var creepType2 = creep.name.split('-');
+      if (creepType2[2] === '1') {
+        roleDig(creep, '59f1a35b82100e1594f3b6c0');
+      } else if (creepType2[2] === '2') {
+        roleDig(creep, '59f1a35b82100e1594f3b6bf');
+      }
     }
   }
 

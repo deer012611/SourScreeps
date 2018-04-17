@@ -1,4 +1,14 @@
 export const roleBuilder = (creep: Creep, flag: string) => {
+  var transporting = false;
+  // memory
+  if (!creep.memory.transporting && creep.carry.energy === 0) {
+    creep.memory.transporting = true;
+    creep.say('🔄');
+  }
+  if (creep.memory.transporting && creep.carry.energy === creep.carryCapacity) {
+    creep.memory.transporting = false;
+    creep.say('⚡');
+  }
   // 建造目标
   var targets;
   var targetsRoad = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
@@ -129,19 +139,24 @@ export const roleBuilder = (creep: Creep, flag: string) => {
         const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
         creep.travelTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
       } else {
-        if (targetsdrop) {
-          if (creep.carry.energy > 0) {
-            build(creep);
-          } else {
-            harvest(creep);
-          }
+        if (creep.memory.transporting) {
+          harvest(creep);
         } else {
-          if (creep.carry.energy < creep.carryCapacity) {
-            harvest(creep);
-          } else {
-            build(creep);
-          }
+          build(creep);
         }
+        // if (targetsdrop) {
+        //   if (creep.carry.energy > 0) {
+        //     build(creep);
+        //   } else {
+        //     harvest(creep);
+        //   }
+        // } else {
+        //   if (creep.carry.energy < creep.carryCapacity) {
+        //     harvest(creep);
+        //   } else {
+        //     build(creep);
+        //   }
+        // }
       }
     }
   };

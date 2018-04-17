@@ -1,6 +1,5 @@
-import { getRooms } from '../utils';
-import { RoomType } from '../enums/room';
 export const roleBirth = () => {
+  // Spawn1造兵
   var creep = [];
   creep = [
     {
@@ -82,16 +81,33 @@ export const roleBirth = () => {
     },
     {
       creepName: 'builder',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
+        [
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
       ]
     },
     {
       creepName: 'engineer',
-      creepNum: 3,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, CARRY, CARRY, MOVE, MOVE, MOVE]
@@ -135,7 +151,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'outTransporter-Flag1',
-      creepNum: 2,
+      creepNum: 0,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
@@ -348,24 +364,38 @@ export const roleBirth = () => {
       ]
     },
     {
+      creepName: 'builder-Flag6',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
       creepName: 'solider-Flag2',
       creepNum: 1,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     },
     {
       creepName: 'solider-Flag3',
-      creepNum: 1,
+      creepNum: 0,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     },
     {
       creepName: 'solider-Flag4',
-      creepNum: 1,
+      creepNum: 0,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     },
     {
       creepName: 'solider-Flag5',
-      creepNum: 1,
+      creepNum: 0,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
+    },
+    {
+      creepName: 'solider-Flag6',
+      creepNum: 0,
+      creepProperty: [[WORK, MOVE, MOVE, CLAIM], [WORK, MOVE, MOVE, CLAIM]]
     }
   ];
   // 看dig的数量小于3，就先生产dig
@@ -383,51 +413,6 @@ export const roleBirth = () => {
       }
     ];
   }
-  // 如果controller时间还大于2000 就不要生产solider
-  // if ( ) {
-  // if (Game.flags['Flag2'].room.controller.reservation.ticksToEnd < 2500) {
-  //   creep.push([
-  //     {
-  //       creepName: 'solider-Flag2',
-  //       creepNum: 1,
-  //       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
-  //     }
-  //   ]);
-  // }
-  // }
-  // if (Game.flags['Flag3'].room) {
-  //   if (Game.flags['Flag3'].room.controller.reservation.ticksToEnd < 2500) {
-  //     creep.push([
-  //       {
-  //         creepName: 'solider-Flag3',
-  //         creepNum: 1,
-  //         creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
-  //       }
-  //     ]);
-  //   }
-  // }
-  // if (Game.flags['Flag4'].room) {
-  //   if (Game.flags['Flag4'].room.controller.reservation.ticksToEnd < 2500) {
-  //     creep.push([
-  //       {
-  //         creepName: 'solider-Flag4',
-  //         creepNum: 1,
-  //         creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
-  //       }
-  //     ]);
-  //   }
-  // }
-  // if (Game.flags['Flag5'].room) {
-  //   if (Game.flags['Flag5'].room.controller.reservation.ticksToEnd < 2500) {
-  //     creep.push([
-  //       {
-  //         creepName: 'solider-Flag5',
-  //         creepNum: 1,
-  //         creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
-  //       }
-  //     ]);
-  //   }
-  // }
 
   // 看transporter的数量小于3，就先生产transporter
   var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
@@ -491,6 +476,9 @@ export const roleBirth = () => {
       case 'builder-Flag4':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
+      case 'builder-Flag6':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
       case 'solider-Flag2':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
@@ -501,6 +489,9 @@ export const roleBirth = () => {
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
       case 'solider-Flag5':
+        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
+        break;
+      case 'solider-Flag6':
         birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
         break;
       case 'outTransporter-Flag1':
@@ -532,8 +523,48 @@ export const roleBirth = () => {
         break;
     }
   }
+  // Spawn2造兵
+  var creep2 = [];
+  creep2 = [
+    {
+      creepName: 'transporter-spawn2',
+      creepNum: 2,
+      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
+    },
+    {
+      creepName: 'dig-spawn2-1',
+      creepNum: 2,
+      creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
+    },
+    {
+      creepName: 'dig-spawn2-2',
+      creepNum: 2,
+      creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
+    },
+    {
+      creepName: 'upgrader-spawn2',
+      creepNum: 2,
+      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
+    }
+  ];
+  for (var j = 0; j < creep2.length; j++) {
+    switch (creep2[j].creepName) {
+      case 'transporter-spawn2':
+        birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+        break;
+      case 'dig-spawn2-1':
+        birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+        break;
+      case 'dig-spawn2-2':
+        birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+        break;
+      case 'upgrader-spawn2':
+        birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+        break;
+    }
+  }
 
-  function birth(_name, _num, _property, _creeptype) {
+  function birth(_name, _num, _property, spawn) {
     var a = '';
     var p = [];
     a = _name;
@@ -582,6 +613,7 @@ export const roleBirth = () => {
         _name === 'builder-Flag2' ||
         _name === 'builder-Flag3' ||
         _name === 'builder-Flag4' ||
+        _name === 'builder-Flag6' ||
         _name === 'outDig-Flag2' ||
         _name === 'outDig-Flag3' ||
         _name === 'outDig-Flag4' ||
@@ -594,7 +626,12 @@ export const roleBirth = () => {
         _name === 'solider-Flag2' ||
         _name === 'solider-Flag3' ||
         _name === 'solider-Flag4' ||
-        _name === 'solider-Flag5'
+        _name === 'solider-Flag5' ||
+        _name === 'solider-Flag6' ||
+        _name === 'transporter-spawn2' ||
+        _name === 'dig-spawn2-1' ||
+        _name === 'dig-spawn2-2' ||
+        _name === 'upgrader-spawn2'
       ) {
         newName = a + '-' + Game.time;
       } else {
@@ -602,9 +639,15 @@ export const roleBirth = () => {
       }
 
       console.log('🐻want a: ' + _name + '    with:' + p + '  named:  ' + newName);
-      Game.spawns['Spawn1'].spawnCreep(p, newName, {
-        memory: { role: a }
-      });
+      if (spawn === undefined) {
+        Game.spawns['Spawn1'].spawnCreep(p, newName, {
+          memory: { role: a }
+        });
+      } else {
+        Game.spawns[spawn].spawnCreep(p, newName, {
+          memory: { role: a }
+        });
+      }
     }
   }
 

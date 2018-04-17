@@ -26,7 +26,7 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
     filter: i =>
       i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] < i.storeCapacity
   });
-  var targetsTower = creep.room.cacheFind(FIND_STRUCTURES, {
+  var targetsTower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: structure => {
       return (
         structure.structureType === STRUCTURE_TOWER && structure.energy < structure.energyCapacity
@@ -117,9 +117,9 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
           if (creep.transfer(targetsTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.travelTo(targetsTower, { visualizePathStyle: { stroke: '#ffffff' } });
           }
-        } else if (targetStorage.length > 0) {
-          if (creep.transfer(targetStorage[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(targetStorage[0], { visualizePathStyle: { stroke: '#ffffff' } });
+        } else if (targetStorage) {
+          if (creep.transfer(targetStorage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(targetStorage, { visualizePathStyle: { stroke: '#ffffff' } });
           }
         }
       }
