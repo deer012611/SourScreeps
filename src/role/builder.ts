@@ -18,7 +18,11 @@ export const roleBuilder = (creep: Creep, flag: string) => {
   });
   var targetsOther = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
     filter: structure => {
-      return structure.structureType !== 'road' && structure.structureType !== 'constructionSite';
+      return (
+        structure.structureType !== 'road' &&
+        structure.structureType !== 'constructionSite' &&
+        structure.structureType !== 'constructedWall'
+      );
     }
   });
   if (targetsOther) {
@@ -37,6 +41,10 @@ export const roleBuilder = (creep: Creep, flag: string) => {
   });
   var closestRampart = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
     filter: structure => structure.hits < 10000 && structure.structureType === 'rampart'
+  });
+  var strengthenRampart = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+    filter: structure =>
+      structure.hits < structure.hitsMax * 0.5 && structure.structureType === 'rampart'
   });
   var fixtargets = '';
   if (closestBadRampart) {
@@ -57,7 +65,7 @@ export const roleBuilder = (creep: Creep, flag: string) => {
     filter: i =>
       i.structureType === STRUCTURE_CONTAINER && i.store[RESOURCE_ENERGY] > creep.carryCapacity
   });
-  var closestOtherDamagedStructure = creep.room.cacheFind(FIND_STRUCTURES, {
+  var closestOtherDamagedStructure = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: structure =>
       structure.hits < structure.hitsMax &&
       structure.structureType !== 'constructedWall' &&
@@ -69,7 +77,19 @@ export const roleBuilder = (creep: Creep, flag: string) => {
   });
 
   const build = (creep: Creep) => {
-    if (buildRampart) {
+    var targetTower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+      filter: structure => {
+        return (
+          structure.structureType === STRUCTURE_TOWER &&
+          structure.energy < structure.energyCapacity * 0.6
+        );
+      }
+    });
+    if (targetTower) {
+      if (creep.transfer(targetTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetTower, { visualizePathStyle: { stroke: '#ffffff' } });
+      }
+    } else if (buildRampart) {
       if (creep.build(buildRampart) === ERR_NOT_IN_RANGE) {
         creep.travelTo(buildRampart, { visualizePathStyle: { stroke: '#ffffff' } });
       }
@@ -87,13 +107,23 @@ export const roleBuilder = (creep: Creep, flag: string) => {
     } else {
       console.log('nothing to build -> fix');
       if (closestOtherDamagedStructure) {
-        if (creep.repair(closestOtherDamagedStructure[0]) === ERR_NOT_IN_RANGE) {
-          creep.travelTo(closestOtherDamagedStructure[0], {
+        console.log(1);
+        if (creep.repair(closestOtherDamagedStructure) === ERR_NOT_IN_RANGE) {
+          creep.travelTo(closestOtherDamagedStructure, {
+            visualizePathStyle: { stroke: '#00ff00' }
+          });
+          creep.say('🔧');
+        }
+      } else if (strengthenRampart) {
+        console.log(2);
+        if (creep.repair(strengthenRampart) === ERR_NOT_IN_RANGE) {
+          creep.travelTo(strengthenRampart, {
             visualizePathStyle: { stroke: '#00ff00' }
           });
           creep.say('🔧');
         }
       } else if (closestWallDamagedStructure) {
+        console.log(3);
         if (creep.repair(closestWallDamagedStructure[0]) === ERR_NOT_IN_RANGE) {
           creep.travelTo(closestWallDamagedStructure[0], {
             visualizePathStyle: { stroke: '#00ff00' }
