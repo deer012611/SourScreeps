@@ -1,9 +1,18 @@
-export const roleTransporter = (creep: Creep) => {
+export const roleTransporter = (creep: Creep, myspawn) => {
   console.log(creep.memory.role);
   var transporting = false;
   creep.memory.transporting = transporting;
   // memory
-  if (!creep.memory.transporting && creep.carry.energy === 0) {
+  if (myspawn === 'spawn2') {
+    if (
+      !creep.memory.transporting &&
+      creep.carry.energy >= 0 &&
+      creep.carry.energy < creep.carryCapacity
+    ) {
+      creep.memory.transporting = true;
+      creep.say('🔄');
+    }
+  } else if (!creep.memory.transporting && creep.carry.energy === 0) {
     creep.memory.transporting = true;
     creep.say('🔄');
   }

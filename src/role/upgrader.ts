@@ -14,7 +14,11 @@ export const roleUpgrader = (creep: Creep, flag: string) => {
   }
 
   var targetSTORAGE = creep.room.storage;
-  var sources = creep.pos.findClosestByRange(FIND_SOURCES);
+  var sources = creep.pos.findClosestByPath(FIND_SOURCES, {
+    filter: structure => {
+      return structure.energy > 0;
+    }
+  });
   // 将稀有金属运送到storage
   // if (targetsSTORAGE.length > 0 ) {
   //   if (creep.transfer(targetsSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
