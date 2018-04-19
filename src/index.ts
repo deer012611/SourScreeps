@@ -8,7 +8,8 @@ import {
   roleUpgrader,
   roleOutDig,
   roleOutTransporter,
-  roleSolider
+  roleSolider,
+  roleAttact
 } from './role';
 import { Emoji } from './utils/Emoji';
 import { getUsername } from './utils';
@@ -46,12 +47,13 @@ export default ErrorMapper.wrapLoop(() => {
   const linkFromSource = Game.getObjectById('5ac212ecac37e47fd05a46a3');
 
   var linkTo = Game.getObjectById('5ac2082a8f54c347c5c42679');
-
-  if (linkFromWall.energy === linkFromWall.energyCapacity && linkTo.energy === 0) {
-    linkFromWall.transferEnergy(linkTo, 800);
-  }
-  if (linkFromSource.energy === linkFromSource.energyCapacity && linkTo.energy === 0) {
-    linkFromSource.transferEnergy(linkTo, 800);
+  if (linkFromWall && linkFromWall) {
+    if (linkFromWall.energy === linkFromWall.energyCapacity && linkTo.energy === 0) {
+      linkFromWall.transferEnergy(linkTo, 800);
+    }
+    if (linkFromSource.energy === linkFromSource.energyCapacity && linkTo.energy === 0) {
+      linkFromSource.transferEnergy(linkTo, 800);
+    }
   }
 
   // 防御塔
@@ -113,6 +115,7 @@ export default ErrorMapper.wrapLoop(() => {
     };
     checkroad(creep);
     checkcontainer(creep);
+
     //
     // var creepRole = creep.name.split('-')[0];
     // var creepType = creep.name.split('-')[1];
@@ -209,6 +212,9 @@ export default ErrorMapper.wrapLoop(() => {
     }
     if (creep.memory.role === 'engineer') {
       roleEngineer(creep);
+    }
+    if (creep.memory.role === 'attactSolider') {
+      roleAttact(creep);
     }
     // spawn2
     if (creep.memory.role === 'transporter-spawn2') {

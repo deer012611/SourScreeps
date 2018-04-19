@@ -14,11 +14,7 @@ export const roleUpgrader = (creep: Creep, flag: string) => {
   }
 
   var targetSTORAGE = creep.room.storage;
-  var sources = creep.pos.findClosestByPath(FIND_SOURCES, {
-    filter: structure => {
-      return structure.energy > 0;
-    }
-  });
+  var sources = creep.room.sources;
   // 将稀有金属运送到storage
   // if (targetsSTORAGE.length > 0 ) {
   //   if (creep.transfer(targetsSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
@@ -35,29 +31,24 @@ export const roleUpgrader = (creep: Creep, flag: string) => {
         creep.travelTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });
       }
     } else {
-      if (flag) {
-        if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
-          creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+      if (containersWithEnergy) {
+        // 如果container里边有能量->container
+        if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.travelTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
+        }
+      } else if (targetSTORAGE) {
+        // else if (targetLink.energy > 0) {
+        //   if (creep.withdraw(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        //     creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffaa00' } });
+        //     creep.say('Link');
+        //   }
+        // }
+        if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
         }
       } else {
-        if (containersWithEnergy) {
-          // 如果container里边有能量->container
-          if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
-          }
-        } else if (targetLink.energy > 0) {
-          if (creep.withdraw(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffaa00' } });
-            creep.say('Link');
-          }
-        } else if (targetSTORAGE) {
-          if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
-          }
-        } else {
-          if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
-          }
+        if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
+          creep.travelTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
         }
       }
     }

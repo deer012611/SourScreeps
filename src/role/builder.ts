@@ -33,7 +33,7 @@ export const roleBuilder = (creep: Creep, flag: string) => {
   // 建造、修理战壕
   var buildRampart = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
     filter: structure => {
-      return structure.structureType === 'rampart';
+      return structure.structureType === 'rampart' || structure.hits === 1;
     }
   });
   var closestBadRampart = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
@@ -141,15 +141,15 @@ export const roleBuilder = (creep: Creep, flag: string) => {
 
   const harvest = (creep: Creep) => {
     if (creep.carry.energy < creep.carryCapacity) {
-      if (containersWithEnergy) {
+      if (targetsdrop.length) {
+        creep.travelTo(targetsdrop[0]);
+        creep.pickup(targetsdrop[0], { visualizePathStyle: { stroke: '#ffffff' } });
+        creep.say('😃');
+      } else if (containersWithEnergy) {
         // 如果container里边有能量->container
         if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.travelTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
         }
-      } else if (targetsdrop.length) {
-        creep.travelTo(targetsdrop[0]);
-        creep.pickup(targetsdrop[0], { visualizePathStyle: { stroke: '#ffffff' } });
-        creep.say('😃');
       } else {
         if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
           creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
@@ -196,18 +196,24 @@ export const roleBuilder = (creep: Creep, flag: string) => {
     goout(creep, flag);
   } else {
     // 我的屋子建造
-    if (containersWithEnergy) {
-      if (creep.carry.energy > 0) {
-        build(creep);
-      } else {
-        harvest(creep);
-      }
+    // if (containersWithEnergy) {
+    //   if (creep.carry.energy > 0) {
+    //     build(creep);
+    //   } else {
+    //     harvest(creep);
+    //   }
+    // } else {
+    //   if (creep.carry.energy < creep.carryCapacity) {
+    //     harvest(creep);
+    //   } else {
+    //     build(creep);
+    //   }
+    // }
+    if (creep.memory.transporting) {
+      harvest(creep);
     } else {
-      if (creep.carry.energy < creep.carryCapacity) {
-        harvest(creep);
-      } else {
-        build(creep);
-      }
+      build(creep);
+      // }
     }
   }
 };
