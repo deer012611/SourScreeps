@@ -102,7 +102,7 @@ export default ErrorMapper.wrapLoop(() => {
     const checkroad = creep => {
       var closestRoad = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: structure =>
-          structure.hits < structure.hitsMax * 0.8 && structure.structureType === 'road'
+          structure.hits < structure.hitsMax * 0.6 && structure.structureType === 'road'
       });
       creep.repair(closestRoad);
     };

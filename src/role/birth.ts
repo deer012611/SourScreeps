@@ -115,7 +115,7 @@ export const roleBirth = () => {
     },
     {
       creepName: 'attactSolider',
-      creepNum: 1,
+      creepNum: 0,
       creepProperty: [[WORK, CARRY, MOVE, ATTACK], [WORK, CARRY, MOVE, ATTACK]]
     },
     {
@@ -479,8 +479,8 @@ export const roleBirth = () => {
         creepNum: 5,
         creepProperty: [
           [WORK, CARRY, MOVE],
-          [WORK, CARRY, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
+          [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE],
+          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
         ]
       }
     ];
@@ -520,86 +520,7 @@ export const roleBirth = () => {
   }
 
   for (var i = 0; i < creep.length; i++) {
-    switch (creep[i].creepName) {
-      case 'dig-1':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'dig-2':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'transporter':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'upgrader':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'builder':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'engineer':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'attactSolider':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'builder-Flag2':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'builder-Flag3':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'builder-Flag4':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'builder-Flag6':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'solider-Flag2':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'solider-Flag3':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'solider-Flag4':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'solider-Flag5':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'solider-Flag6':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outTransporter-Flag1':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outTransporter-Flag2':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outTransporter-Flag3':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outTransporter-Flag4':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outTransporter-Flag5':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outDig-Flag2':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outDig-Flag3':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outDig-Flag4':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'outDig-Flag5':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-      case 'upgrader-Flag6':
-        birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
-        break;
-    }
+    birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty);
   }
   // Spawn2造兵
   // var creep2 = [];
@@ -660,7 +581,7 @@ export const roleBirth = () => {
     });
     // transporter
     if (_name === 'transporter') {
-      if (extensions.length < 5) {
+      if (extensions.length <= 5) {
         p = _property[0];
       } else if (n.length < 1) {
         p = _property[1];
@@ -669,7 +590,7 @@ export const roleBirth = () => {
       }
     } else if (_name === 'dig') {
       // dig
-      if (extensions.length < 5) {
+      if (extensions.length <= 5) {
         p = _property[1];
       } else {
         p = _property[2];
@@ -678,7 +599,7 @@ export const roleBirth = () => {
       // 其他
       if (extensions.length === 0) {
         p = _property[0];
-      } else if (extensions.length < 5) {
+      } else if (extensions.length <= 5) {
         p = _property[1];
       } else {
         p = _property[2];
@@ -737,7 +658,7 @@ export const roleBirth = () => {
   if (Game.spawns['Spawn1'].spawning) {
     var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
     Game.spawns['Spawn1'].room.visual.text(
-      '' + spawningCreep.memory.role,
+      '🐤' + spawningCreep.memory.role,
       Game.spawns['Spawn1'].pos.x + 1,
       Game.spawns['Spawn1'].pos.y,
       { align: 'left', opacity: 0.8 }
