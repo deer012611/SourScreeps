@@ -1,8 +1,6 @@
 export const roleDig = (creep: Creep, mineID: string) => {
-  console.log(creep, mineID);
   var sources = Game.getObjectById(mineID);
   var targetLink = Game.getObjectById('5ac212ecac37e47fd05a46a3');
-  console.log(targetLink);
   var targetContainer = Game.getObjectById('5aca5db82657b65071649939');
 
   const digLinkMiner = (creep: Creep, sources) => {

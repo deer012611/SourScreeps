@@ -29,6 +29,15 @@ const Root = (): void => {
   }
 };
 
+// death
+Game.spawns['Spawn1'].room.find(FIND_TOMBSTONES).forEach(tombstone => {
+  if (tombstone.creep.my) {
+    console.log(
+      `☠️ My creep died with ID=${tombstone.creep.id} ` +
+        `and role=${Memory.creeps[tombstone.creep.name].role}`
+    );
+  }
+});
 export default ErrorMapper.wrapLoop(() => {
   Root();
   // 清理缓存
@@ -240,7 +249,6 @@ export default ErrorMapper.wrapLoop(() => {
   }
 
   //
-
   let goals = _.map(creep.room.find(FIND_SOURCES), function(source) {
     // We can't actually walk on sources-- set `range` to 1
     // so we path next to it.

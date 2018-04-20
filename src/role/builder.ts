@@ -93,6 +93,10 @@ export const roleBuilder = (creep: Creep, flag: string) => {
       if (creep.build(buildRampart) === ERR_NOT_IN_RANGE) {
         creep.travelTo(buildRampart, { visualizePathStyle: { stroke: '#ffffff' } });
       }
+    } else if (targets) {
+      if (creep.build(targets) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+      }
     } else if (fixtargets) {
       if (creep.repair(fixtargets) === ERR_NOT_IN_RANGE) {
         creep.travelTo(fixtargets, {
@@ -100,14 +104,9 @@ export const roleBuilder = (creep: Creep, flag: string) => {
         });
         creep.say('🔧');
       }
-    } else if (targets) {
-      if (creep.build(targets) === ERR_NOT_IN_RANGE) {
-        creep.travelTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
-      }
     } else {
       console.log('nothing to build -> fix');
       if (closestOtherDamagedStructure) {
-        console.log(1);
         if (creep.repair(closestOtherDamagedStructure) === ERR_NOT_IN_RANGE) {
           creep.travelTo(closestOtherDamagedStructure, {
             visualizePathStyle: { stroke: '#00ff00' }
@@ -115,7 +114,6 @@ export const roleBuilder = (creep: Creep, flag: string) => {
           creep.say('🔧');
         }
       } else if (strengthenRampart) {
-        console.log(2);
         if (creep.repair(strengthenRampart) === ERR_NOT_IN_RANGE) {
           creep.travelTo(strengthenRampart, {
             visualizePathStyle: { stroke: '#00ff00' }
@@ -123,7 +121,6 @@ export const roleBuilder = (creep: Creep, flag: string) => {
           creep.say('🔧');
         }
       } else if (closestWallDamagedStructure) {
-        console.log(3);
         if (creep.repair(closestWallDamagedStructure[0]) === ERR_NOT_IN_RANGE) {
           creep.travelTo(closestWallDamagedStructure[0], {
             visualizePathStyle: { stroke: '#00ff00' }

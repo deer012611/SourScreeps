@@ -71,11 +71,11 @@ export const roleBirth = () => {
     },
     {
       creepName: 'upgrader',
-      creepNum: 5,
+      creepNum: 3,
       creepProperty: [
         [WORK, CARRY, MOVE],
         // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
         [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
       ]
     },
@@ -408,7 +408,7 @@ export const roleBirth = () => {
       creepProperty: [
         [WORK, CARRY, MOVE],
         // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
         [
           WORK,
           WORK,
@@ -441,6 +441,36 @@ export const roleBirth = () => {
       ]
     }
   ];
+  // 看upgrader的数量小于3，就先生产upgrader
+  var upgradernum = _.filter(Game.creeps, creep => creep.memory.role === 'upgrader');
+  if (upgradernum.length < 3) {
+    creep = [
+      {
+        creepName: 'upgrader',
+        creepNum: 3,
+        creepProperty: [
+          [WORK, CARRY, MOVE],
+          [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
+          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
+        ]
+      }
+    ];
+  }
+  // 看builder的数量小于3，就先生产builder
+  var buildsnum = _.filter(Game.creeps, creep => creep.memory.role === 'builder');
+  if (buildsnum.length < 3) {
+    creep = [
+      {
+        creepName: 'builder',
+        creepNum: 3,
+        creepProperty: [
+          [WORK, CARRY, MOVE],
+          [WORK, CARRY, MOVE],
+          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
+        ]
+      }
+    ];
+  }
   // 看dig的数量小于3，就先生产dig
   var digsnum = _.filter(Game.creeps, creep => creep.memory.role === 'dig-1');
   if (digsnum.length < 1) {
@@ -456,35 +486,6 @@ export const roleBirth = () => {
       }
     ];
   }
-  // 看builder的数量小于3，就先生产builder
-  var buildsnum = _.filter(Game.creeps, creep => creep.memory.role === 'builder');
-  if (buildsnum.length < 5) {
-    creep = [
-      {
-        creepName: 'builder',
-        creepNum: 5,
-        creepProperty: [
-          [WORK, CARRY, MOVE],
-          [WORK, CARRY, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
-        ]
-      }
-    ];
-  } // 看builder的数量小于3，就先生产builder
-  var upgradernum = _.filter(Game.creeps, creep => creep.memory.role === 'upgrader');
-  if (upgradernum.length < 5) {
-    creep = [
-      {
-        creepName: 'upgrader',
-        creepNum: 5,
-        creepProperty: [
-          [WORK, CARRY, MOVE],
-          [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
-        ]
-      }
-    ];
-  }
 
   // 看transporter的数量小于3，就先生产transporter
   var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
@@ -492,7 +493,7 @@ export const roleBirth = () => {
     creep = [
       {
         creepName: 'transporter',
-        creepNum: 2,
+        creepNum: 5,
         creepProperty: [
           [WORK, CARRY, MOVE],
           [WORK, CARRY, MOVE, CARRY, MOVE],

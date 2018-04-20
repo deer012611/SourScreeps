@@ -1,5 +1,4 @@
 export const roleTransporter = (creep: Creep, myspawn) => {
-  console.log(creep.memory.role);
   var transporting = true;
   creep.memory.transporting = transporting;
   // memory
