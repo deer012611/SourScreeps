@@ -1,6 +1,5 @@
 import { ErrorMapper } from './utils/ErrorMapper';
 import {
-  roleBirth,
   roleBuilder,
   roleDig,
   roleEngineer,
@@ -11,6 +10,7 @@ import {
   roleSolider,
   roleAttact
 } from './role';
+import { roleBirth } from './function/birth';
 import { Emoji } from './utils/Emoji';
 import { getUsername } from './utils';
 import { Grafana } from './mod/Grafana';
@@ -66,9 +66,11 @@ export default ErrorMapper.wrapLoop(() => {
   }
 
   // 防御塔
-  var tower1 = Game.getObjectById('5ab6827b7afe841dc7136d09');
-  var tower2 = Game.getObjectById('5ac236322a293d47b9ecaa41');
-
+  var tower = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {
+    filter: function(structure) {
+      return structure.structureType === 'tower';
+    }
+  });
   const towercontrol = tower => {
     if (tower) {
       var closestBadRampart = tower.pos.findClosestByRange(FIND_STRUCTURES, {
@@ -100,8 +102,7 @@ export default ErrorMapper.wrapLoop(() => {
       }
     }
   };
-  towercontrol(tower1);
-  towercontrol(tower2);
+  towercontrol(tower[0]);
 
   //
 

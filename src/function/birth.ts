@@ -4,7 +4,7 @@ export const roleBirth = () => {
   creep = [
     {
       creepName: 'transporter',
-      creepNum: 2,
+      creepNum: 4,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, MOVE],

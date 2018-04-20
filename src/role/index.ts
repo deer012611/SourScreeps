@@ -1,4 +1,3 @@
-export * from './birth';
 export * from './builder';
 export * from './dig';
 export * from './engineer';

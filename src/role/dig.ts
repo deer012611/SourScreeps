@@ -36,13 +36,11 @@ export const roleDig = (creep: Creep, mineID: string) => {
             }
           }
         }
+      } else {
+        if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
+          creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+        }
       }
-
-      // else {
-      // if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
-      //   creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
-      // }
-      // }
     }
   };
   if (creep.memory.role === 'dig-2') {
