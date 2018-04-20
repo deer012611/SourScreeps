@@ -1,5 +1,6 @@
+import { fixNearby } from '../function/function';
 export const roleTransporter = (creep: Creep, myspawn) => {
-  var transporting = true;
+  var transporting = false;
   creep.memory.transporting = transporting;
   // memory
   // if (myspawn === 'spawn2') {
@@ -137,6 +138,8 @@ export const roleTransporter = (creep: Creep, myspawn) => {
     //     }
     //   }
     // } else {
+    // fixNearby(creep);
+    fixNearby(creep);
     transport(creep);
     // }
   }

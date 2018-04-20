@@ -586,14 +586,14 @@ export const roleBirth = () => {
         p = _property[0];
       } else if (n.length < 1) {
         p = _property[1];
-      } else {
+      } else if (extensions.length > 10) {
         p = _property[2];
       }
     } else if (_name === 'dig') {
       // dig
       if (extensions.length <= 5) {
         p = _property[1];
-      } else {
+      } else if (extensions.length > 10) {
         p = _property[2];
       }
     } else if (_property[2] && _name !== 'transporter') {
@@ -602,7 +602,7 @@ export const roleBirth = () => {
         p = _property[0];
       } else if (extensions.length <= 5) {
         p = _property[1];
-      } else {
+      } else if (extensions.length > 10) {
         p = _property[2];
       }
     }

@@ -104,27 +104,9 @@ export default ErrorMapper.wrapLoop(() => {
   towercontrol(tower2);
 
   //
+
   for (name in Game.creeps) {
     var creep = Game.creeps[name];
-
-    // 修脚下的路
-    const checkroad = creep => {
-      var closestRoad = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-        filter: structure =>
-          structure.hits < structure.hitsMax * 0.6 && structure.structureType === 'road'
-      });
-      creep.repair(closestRoad);
-    };
-    const checkcontainer = creep => {
-      var closestContainer = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-        filter: structure =>
-          structure.hits < structure.hitsMax * 0.6 && structure.structureType === 'container'
-      });
-      creep.repair(closestContainer);
-    };
-    checkroad(creep);
-    checkcontainer(creep);
-
     //
     // var creepRole = creep.name.split('-')[0];
     // var creepType = creep.name.split('-')[1];
