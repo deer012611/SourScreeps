@@ -29,17 +29,7 @@ const Root = (): void => {
   }
 };
 
-// death
-Game.spawns['Spawn1'].room.find(FIND_TOMBSTONES).forEach(tombstone => {
-  if (tombstone.creep.my) {
-    console.log(
-      `☠️ My creep died with ID=${tombstone.creep.id} ` +
-        `and role=${Memory.creeps[tombstone.creep.name].role}`
-    );
-  }
-});
 export default ErrorMapper.wrapLoop(() => {
-  Root();
   // 清理缓存
   for (var name in Memory.creeps) {
     if (!Game.creeps[name]) {
@@ -47,26 +37,27 @@ export default ErrorMapper.wrapLoop(() => {
       console.log('Clearing non-existing creep memory:', name);
     }
   }
+  Root();
 
   // 生产creeps
   roleBirth();
 
   // Link
-  const linkFromWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
-  const linkFromSource = Game.getObjectById('5ac212ecac37e47fd05a46a3');
+  // const linkFromWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
+  const linkFromSource = Game.getObjectById('5adea4dbcd89a7456f1b0ee6');
 
-  var linkTo = Game.getObjectById('5ac2082a8f54c347c5c42679');
-  if (linkFromWall && linkFromWall) {
-    if (linkFromWall.energy === linkFromWall.energyCapacity && linkTo.energy === 0) {
-      linkFromWall.transferEnergy(linkTo, 800);
-    }
+  var linkTo = Game.getObjectById('5adeada83064b30ef970b24d');
+  if (linkFromSource) {
+    // if (linkFromWall.energy === linkFromWall.energyCapacity && linkTo.energy === 0) {
+    //   linkFromWall.transferEnergy(linkTo, 800);
+    // }
     if (linkFromSource.energy === linkFromSource.energyCapacity && linkTo.energy === 0) {
       linkFromSource.transferEnergy(linkTo, 800);
     }
   }
 
   // 防御塔
-  var tower = Game.spawns['Spawn1'].room.find(FIND_STRUCTURES, {
+  var tower = Game.spawns['Spawn1'].room.cacheFind(FIND_STRUCTURES, {
     filter: function(structure) {
       return structure.structureType === 'tower';
     }
@@ -76,10 +67,6 @@ export default ErrorMapper.wrapLoop(() => {
       var closestBadRampart = tower.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: structure => structure.hits < 3000 && structure.structureType === 'rampart'
       });
-      // var closestRampart = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-      //   filter: structure =>
-      //     structure.hits < structure.hitsMax * 0.2 && structure.structureType === 'rampart'
-      // });
       var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: structure =>
           structure.hits < structure.hitsMax * 0.2 &&
@@ -87,25 +74,23 @@ export default ErrorMapper.wrapLoop(() => {
           structure.structureType !== 'constructedWall'
       });
       var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-
       if (closestHostile) {
         tower.attack(closestHostile);
       } else if (tower.energy > tower.energyCapacity * 0.6) {
         if (closestBadRampart) {
           tower.repair(closestBadRampart);
         } else {
-          // else if (closestRampart) {
-          //   tower.repair(closestRampart);
-          // } ///
           tower.repair(closestDamagedStructure);
         }
       }
     }
   };
   towercontrol(tower[0]);
+  towercontrol(tower[1]);
 
   //
-
+  // var attactcreep = Game.spawns['E9N44'].room.find(FIND_HOSTILE_CREEPS);
+  // console.log('E9N44' + attactcreep);
   for (name in Game.creeps) {
     var creep = Game.creeps[name];
     //

@@ -15,15 +15,6 @@ export const roleUpgrader = (creep: Creep, flag: string) => {
 
   var targetSTORAGE = creep.room.storage;
   var sources = creep.room.sources;
-  // 将稀有金属运送到storage
-  // if (targetsSTORAGE.length > 0 ) {
-  //   if (creep.transfer(targetsSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-  //     creep.travelTo(targetsSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
-  //   } else if (creep.transfer(targetsSTORAGE[0], RESOURCE_GHODIUM_OXIDE) === ERR_NOT_IN_RANGE) {
-  //     creep.travelTo(targetsSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
-  //   }
-  // }
-  // if (targetSTORAGE.energy > targetSTORAGE.energyCapacity * 0.4)
 
   const upgrade = (creep: Creep) => {
     if (creep.memory.upgrading) {
@@ -63,7 +54,22 @@ export const roleUpgrader = (creep: Creep, flag: string) => {
       if (creep.room.name !== toRoom) {
         creep.travelTo(Game.flags[flag]);
       } else {
-        upgrade(creep);
+        // 将稀有金属运送到storage
+        var tombstone = creep.room.cacheFind(FIND_TOMBSTONES);
+        console.log(tombstone);
+        if (tombstone[0]) {
+          creep.travelTo(tombstone[0], { visualizePathStyle: { stroke: '#ff6c3d' } });
+        } else {
+          // if (targetSTORAGE.length > 0) {
+          //   if (creep.transfer(targetSTORAGE[0], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          //     creep.travelTo(targetSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
+          //   } else if (creep.transfer(targetSTORAGE[0], RESOURCE_GHODIUM_OXIDE) === ERR_NOT_IN_RANGE) {
+          //     creep.travelTo(targetSTORAGE[0], { visualizePathStyle: { stroke: '#ffffff' } });
+          //   }
+          // }
+          // if (targetSTORAGE.energy > targetSTORAGE.energyCapacity * 0.4)
+          upgrade(creep);
+        }
       }
     }
   }
