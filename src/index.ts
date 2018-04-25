@@ -57,16 +57,18 @@ export default ErrorMapper.wrapLoop(() => {
   }
 
   // 防御塔
-  var tower = Game.spawns['Spawn1'].room.cacheFind(FIND_STRUCTURES, {
-    filter: function(structure) {
-      return structure.structureType === 'tower';
-    }
-  });
+  var tower1 = Game.getObjectById('5ad97283beafc0400a8f0048');
+  var tower2 = Game.getObjectById('5adee3200409f23c73cecb24');
+
   const towercontrol = tower => {
     if (tower) {
       var closestBadRampart = tower.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: structure => structure.hits < 3000 && structure.structureType === 'rampart'
       });
+      // var closestRampart = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+      //   filter: structure =>
+      //     structure.hits < structure.hitsMax * 0.2 && structure.structureType === 'rampart'
+      // });
       var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: structure =>
           structure.hits < structure.hitsMax * 0.2 &&
@@ -74,19 +76,23 @@ export default ErrorMapper.wrapLoop(() => {
           structure.structureType !== 'constructedWall'
       });
       var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+
       if (closestHostile) {
         tower.attack(closestHostile);
       } else if (tower.energy > tower.energyCapacity * 0.6) {
         if (closestBadRampart) {
           tower.repair(closestBadRampart);
         } else {
+          // else if (closestRampart) {
+          //   tower.repair(closestRampart);
+          // } ///
           tower.repair(closestDamagedStructure);
         }
       }
     }
   };
-  towercontrol(tower[0]);
-  towercontrol(tower[1]);
+  towercontrol(tower1);
+  towercontrol(tower2);
 
   //
   // var attactcreep = Game.spawns['E9N44'].room.find(FIND_HOSTILE_CREEPS);
