@@ -1,3 +1,4 @@
+import { fixNearby } from '../function/function';
 export const roleOutTransporter = (creep: Creep, flag: string) => {
   var targetsBuild = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
     filter: structure => {
@@ -129,6 +130,7 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
   if (creep.memory.transporting) {
     goout(creep);
   } else {
+    fixNearby(creep);
     if (targetsBuild) {
       if (creep.build(targetsBuild) === ERR_NOT_IN_RANGE) {
         creep.travelTo(targetsBuild, { visualizePathStyle: { stroke: '#ffffff' } });

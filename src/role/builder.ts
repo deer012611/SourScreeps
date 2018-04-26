@@ -160,11 +160,8 @@ export const roleBuilder = (creep: Creep, flag: string) => {
       creep.travelTo(Game.flags[flag]);
     } else {
       var toRoom = Game.flags[flag].room.name;
-
       if (creep.room.name !== toRoom) {
-        const exitDir = Game.map.findExit(creep.room.name, toRoom);
-        const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
-        creep.travelTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.travelTo(Game.flags[flag]);
       } else {
         if (creep.memory.transporting) {
           harvest(creep);

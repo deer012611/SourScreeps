@@ -120,9 +120,5 @@ export const roleEngineer = (creep: Creep) => {
   };
 
   // ----
-  if (creep.memory.engineering) {
-    harvest(creep);
-  } else {
-    repaire(creep);
-  }
+
 };

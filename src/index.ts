@@ -136,7 +136,7 @@ export default ErrorMapper.wrapLoop(() => {
     // }
 
     //
-    if (creep.memory.role === 'upgrader' || creep.memory.role === 'upgrader-Flag6') {
+    if (creep.memory.role === 'upgrader' || creep.memory.role === 'upgrader-Flag3') {
       var upgraderFlagPos = creep.name.split('-');
       roleUpgrader(creep, upgraderFlagPos[1]);
     }
