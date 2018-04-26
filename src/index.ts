@@ -208,12 +208,10 @@ export default ErrorMapper.wrapLoop(() => {
       var upgradspawn = creep.name.split('-');
       roleUpgrader(creep, upgradspawn[1]);
     }
-    if (creep.memory.role === 'dig-spawn2-1' || creep.memory.role === 'dig-spawn2-2') {
+    if (creep.memory.role === 'dig-spawn2-1') {
       var creepType2 = creep.name.split('-');
       if (creepType2[2] === '1') {
-        roleDig(creep, '59f1a35b82100e1594f3b6c0');
-      } else if (creepType2[2] === '2') {
-        roleDig(creep, '59f1a35b82100e1594f3b6bf');
+        roleDig(creep, '59f1a39482100e1594f3bbea');
       }
     }
   }

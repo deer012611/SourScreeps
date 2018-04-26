@@ -507,44 +507,31 @@ export const roleBirth = () => {
   }
   // Spawn2造兵
   var creep2 = [];
-  // creep2 = [
-  // {
-  //   creepName: 'transporter-spawn2',
-  //   creepNum: 2,
-  //   creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
-  // },
-  // {
-  //   creepName: 'dig-spawn2-1',
-  //   creepNum: 2,
-  //   creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
-  // },
-  // {
-  //   creepName: 'dig-spawn2-2',
-  //   creepNum: 2,
-  //   creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
-  // },
-  // {
-  //   creepName: 'upgrader-spawn2',
-  //   creepNum: 2,
-  //   creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
-  // }
-  // ];
-  // for (var j = 0; j < creep2.length; j++) {
-  //   switch (creep2[j].creepName) {
-  //     case 'transporter-spawn2':
-  //       birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
-  //       break;
-  //     case 'dig-spawn2-1':
-  //       birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
-  //       break;
-  //     case 'dig-spawn2-2':
-  //       birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
-  //       break;
-  //     case 'upgrader-spawn2':
-  //       birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
-  //       break;
-  //   }
-  // }
+  creep2 = [
+    {
+      creepName: 'transporter-spawn2',
+      creepNum: 2,
+      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
+    },
+    {
+      creepName: 'dig-spawn2-1',
+      creepNum: 2,
+      creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
+    }
+    // {
+    //   creepName: 'dig-spawn2-2',
+    //   creepNum: 2,
+    //   creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
+    // },
+    // {
+    //   creepName: 'upgrader-spawn2',
+    //   creepNum: 2,
+    //   creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
+    // }
+  ];
+  for (var j = 0; j < creep2.length; j++) {
+    birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
+  }
   function birth(_name, _num, _property, spawn) {
     var a = '';
     var p = [];
