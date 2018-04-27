@@ -511,12 +511,20 @@ export const roleBirth = () => {
     {
       creepName: 'transporter-spawn2',
       creepNum: 2,
-      creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE]
+      ]
     },
     {
       creepName: 'dig-spawn2-1',
       creepNum: 2,
-      creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
+      creepProperty: [
+        [WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
+      ]
     }
     // {
     //   creepName: 'dig-spawn2-2',
@@ -561,6 +569,8 @@ export const roleBirth = () => {
     } else if (_name === 'dig') {
       // dig
       if (extensions.length <= 5) {
+        p = _property[1];
+      } else if (extensions.length > 5 && extensions.length < 10) {
         p = _property[1];
       } else if (extensions.length >= 10) {
         p = _property[2];

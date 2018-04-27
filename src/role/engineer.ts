@@ -120,5 +120,4 @@ export const roleEngineer = (creep: Creep) => {
   };
 
   // ----
-
 };
