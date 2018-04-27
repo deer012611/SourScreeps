@@ -27,7 +27,6 @@ export const roleSolider = (creep: Creep, flag: string) => {
               );
             }
           });
-          console.log(targets);
           var targetsdrop = creep.room.cacheFind(FIND_DROPPED_RESOURCES, {
             filter: i => i.amount > creep.carryCapacity
           });

@@ -9,7 +9,6 @@ export const roleDig = (creep: Creep, mineID: string) => {
       creep.memory.role === 'dig-spawn2-1' ||
       creep.memory.role === 'dig-spawn2-2'
     ) {
-      console.log(creep.memory.role, sources);
       if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
         creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
       }

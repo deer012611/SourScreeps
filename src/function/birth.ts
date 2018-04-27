@@ -1,393 +1,7 @@
-export const roleBirth = () => {
+export const roleBirth = (SPAWN: string, CREEP: array) => {
   // Spawn1造兵
   var creep = [];
-  creep = [
-    {
-      creepName: 'transporter',
-      creepNum: 3,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'dig-1',
-      creepNum: 1,
-      creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, WORK, MOVE]
-      ]
-    },
-    {
-      creepName: 'dig-2',
-      creepNum: 1,
-      creepProperty: [
-        [WORK, WORK, CARRY, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
-      ]
-    },
-    {
-      creepName: 'upgrader',
-      creepNum: 4,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE],
-        [
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE
-        ]
-      ]
-    },
-    {
-      creepName: 'builder',
-      creepNum: 2,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'engineer',
-      creepNum: 1,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, CARRY, CARRY, MOVE, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'attactSolider',
-      creepNum: 0,
-      creepProperty: [[WORK, CARRY, MOVE, ATTACK], [WORK, CARRY, MOVE, ATTACK]]
-    },
-    {
-      creepName: 'outDig-Flag2',
-      creepNum: 1,
-      creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'outDig-Flag3',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'outDig-Flag4',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'outDig-Flag5',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'outTransporter-Flag1',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          WORK,
-          CARRY,
-          CARRY,
-          MOVE
-        ]
-      ]
-    },
-    {
-      creepName: 'outTransporter-Flag2',
-      creepNum: 2,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
-          WORK,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE
-        ]
-      ]
-    },
-    {
-      creepName: 'outTransporter-Flag3',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          WORK,
-          CARRY,
-          CARRY,
-          MOVE
-        ]
-      ]
-    },
-    {
-      creepName: 'outTransporter-Flag4',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          WORK,
-          CARRY,
-          CARRY,
-          MOVE
-        ]
-      ]
-    },
-    {
-      creepName: 'outTransporter-Flag5',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          WORK,
-          CARRY,
-          MOVE
-        ]
-      ]
-    },
-    {
-      creepName: 'builder-Flag2',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'builder-Flag3',
-      creepNum: 2,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'builder-Flag4',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'builder-Flag6',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE],
-        [WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'solider-Flag2',
-      creepNum: 1,
-      creepProperty: [[MOVE, MOVE, CLAIM, CLAIM], [MOVE, MOVE, CLAIM, CLAIM]]
-    },
-    {
-      creepName: 'solider-Flag3',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, CARRY, MOVE, MOVE, CLAIM],
-        [WORK, CARRY, CARRY, MOVE, MOVE, CLAIM]
-      ]
-    },
-    {
-      creepName: 'solider-Flag4',
-      creepNum: 0,
-      creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
-    },
-    {
-      creepName: 'solider-Flag5',
-      creepNum: 0,
-      creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
-    },
-    {
-      creepName: 'solider-Flag6',
-      creepNum: 0,
-      creepProperty: [[WORK, MOVE, MOVE, CLAIM], [WORK, MOVE, MOVE, CLAIM]]
-    },
-    {
-      creepName: 'upgrader-Flag3',
-      creepNum: 2,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
-        [
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          WORK,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE
-        ]
-      ]
-    }
-  ];
+  creep = CREEP;
 
   // 看builder的数量小于3，就先生产builder
   var buildsnum = _.filter(Game.creeps, creep => creep.memory.role === 'builder');
@@ -503,40 +117,11 @@ export const roleBirth = () => {
   }
 
   for (var i = 0; i < creep.length; i++) {
-    birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty, 'Spawn1');
+    birth(creep[i].creepName, creep[i].creepNum, creep[i].creepProperty, SPAWN);
   }
   // Spawn2造兵
   var creep2 = [];
-  creep2 = [
-    {
-      creepName: 'transporter-spawn2',
-      creepNum: 2,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-        [WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'dig-spawn2-1',
-      creepNum: 2,
-      creepProperty: [
-        [WORK, WORK, CARRY, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
-      ]
-    }
-    // {
-    //   creepName: 'dig-spawn2-2',
-    //   creepNum: 2,
-    //   creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
-    // },
-    // {
-    //   creepName: 'upgrader-spawn2',
-    //   creepNum: 2,
-    //   creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
-    // }
-  ];
+
   for (var j = 0; j < creep2.length; j++) {
     birth(creep2[j].creepName, creep2[j].creepNum, creep2[j].creepProperty, 'Spawn2');
   }
@@ -548,11 +133,13 @@ export const roleBirth = () => {
     //
     var n = _.filter(Game.creeps, creep => creep.memory.role === _name);
     if (_num !== 0) {
-      console.log('🏠 Totle:  ' + _name + ' ' + n.length + '/' + _num);
+      console.log(
+        '🏠 ' + Game.spawns[SPAWN].room.name + ' Totle:  ' + _name + ' ' + n.length + '/' + _num
+      );
     }
 
     // 判断是否5个 extionsion活跃
-    var extensions = Game.spawns['Spawn1'].room.cacheFind(FIND_STRUCTURES, {
+    var extensions = Game.spawns[SPAWN].room.cacheFind(FIND_STRUCTURES, {
       filter: function(structure) {
         return structure.structureType === 'extension' && structure.isActive() === true;
       }
@@ -590,34 +177,7 @@ export const roleBirth = () => {
 
     var newName = '';
     if (n.length < _num) {
-      if (
-        _name === 'dig-1' ||
-        _name === 'dig-2' ||
-        _name === 'attactSolider' ||
-        _name === 'builder-Flag2' ||
-        _name === 'builder-Flag3' ||
-        _name === 'builder-Flag4' ||
-        _name === 'builder-Flag6' ||
-        _name === 'outDig-Flag2' ||
-        _name === 'outDig-Flag3' ||
-        _name === 'outDig-Flag4' ||
-        _name === 'outDig-Flag5' ||
-        _name === 'outTransporter-Flag1' ||
-        _name === 'outTransporter-Flag2' ||
-        _name === 'outTransporter-Flag3' ||
-        _name === 'outTransporter-Flag4' ||
-        _name === 'outTransporter-Flag5' ||
-        _name === 'solider-Flag2' ||
-        _name === 'solider-Flag3' ||
-        _name === 'solider-Flag4' ||
-        _name === 'solider-Flag5' ||
-        _name === 'solider-Flag6' ||
-        _name === 'transporter-spawn2' ||
-        _name === 'dig-spawn2-1' ||
-        _name === 'dig-spawn2-2' ||
-        _name === 'upgrader-spawn2' ||
-        _name === 'upgrader-Flag3'
-      ) {
+      if (_name.split('-')[1]) {
         newName = a + '-' + Game.time;
       } else {
         newName = a + Game.time;
@@ -625,7 +185,7 @@ export const roleBirth = () => {
 
       console.log('🐒want a: ' + _name + '    with:' + p + '  named:  ' + newName);
       if (spawn === undefined) {
-        Game.spawns['Spawn1'].spawnCreep(p, newName, {
+        Game.spawns[SPAWN].spawnCreep(p, newName, {
           memory: { role: a }
         });
       } else if (Game.spawns[spawn]) {
@@ -635,14 +195,13 @@ export const roleBirth = () => {
       }
     }
   }
-
   //
-  if (Game.spawns['Spawn1'].spawning) {
-    var spawningCreep = Game.creeps[Game.spawns['Spawn1'].spawning.name];
-    Game.spawns['Spawn1'].room.visual.text(
+  if (Game.spawns[SPAWN].spawning) {
+    var spawningCreep = Game.creeps[Game.spawns[SPAWN].spawning.name];
+    Game.spawns[SPAWN].room.visual.text(
       '🐤' + spawningCreep.memory.role,
-      Game.spawns['Spawn1'].pos.x + 1,
-      Game.spawns['Spawn1'].pos.y,
+      Game.spawns[SPAWN].pos.x + 1,
+      Game.spawns[SPAWN].pos.y,
       { align: 'left', opacity: 0.8 }
     );
   }

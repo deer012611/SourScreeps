@@ -40,7 +40,425 @@ export default ErrorMapper.wrapLoop(() => {
   Root();
 
   // 生产creeps
-  roleBirth();
+  var birthcreep = [
+    {
+      creepName: 'transporter',
+      creepNum: 3,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'dig-1',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, WORK, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, WORK, MOVE]
+      ]
+    },
+    {
+      creepName: 'dig-2',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
+      ]
+    },
+    {
+      creepName: 'upgrader',
+      creepNum: 4,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE],
+        [
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'builder',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'engineer',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, CARRY, CARRY, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'attactSolider',
+      creepNum: 0,
+      creepProperty: [[WORK, CARRY, MOVE, ATTACK], [WORK, CARRY, MOVE, ATTACK]]
+    },
+    {
+      creepName: 'outDig-Flag2',
+      creepNum: 1,
+      creepProperty: [
+        [WORK, WORK, MOVE],
+        [WORK, WORK, WORK, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'outDig-Flag3',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, WORK, MOVE],
+        [WORK, WORK, WORK, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'outDig-Flag4',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, WORK, MOVE],
+        [WORK, WORK, WORK, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'outDig-Flag5',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, WORK, MOVE],
+        [WORK, WORK, WORK, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'outTransporter-Flag1',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          WORK,
+          CARRY,
+          CARRY,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'outTransporter-Flag2',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          WORK,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'outTransporter-Flag3',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          WORK,
+          CARRY,
+          CARRY,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'outTransporter-Flag4',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          WORK,
+          CARRY,
+          CARRY,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'outTransporter-Flag5',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          WORK,
+          CARRY,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'builder-Flag2',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'builder-Flag3',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'builder-Flag4',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'builder-Flag6',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'solider-Flag2',
+      creepNum: 1,
+      creepProperty: [[MOVE, MOVE, CLAIM, CLAIM], [MOVE, MOVE, CLAIM, CLAIM]]
+    },
+    {
+      creepName: 'solider-Flag3',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, CARRY, MOVE, MOVE, CLAIM],
+        [WORK, CARRY, CARRY, MOVE, MOVE, CLAIM]
+      ]
+    },
+    {
+      creepName: 'solider-Flag4',
+      creepNum: 0,
+      creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
+    },
+    {
+      creepName: 'solider-Flag5',
+      creepNum: 0,
+      creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
+    },
+    {
+      creepName: 'solider-Flag6',
+      creepNum: 0,
+      creepProperty: [[WORK, MOVE, MOVE, CLAIM], [WORK, MOVE, MOVE, CLAIM]]
+    },
+    {
+      creepName: 'upgrader-Flag3',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
+        [
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
+      ]
+    }
+  ];
+  var birthcreep2 = [
+    {
+      creepName: 'transporter-spawn2',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'dig-spawn2-1',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
+      ]
+    }
+    // {
+    //   creepName: 'dig-spawn2-2',
+    //   creepNum: 2,
+    //   creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
+    // },
+    // {
+    //   creepName: 'upgrader-spawn2',
+    //   creepNum: 2,
+    //   creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
+    // }
+  ];
+  roleBirth('Spawn1', birthcreep);
+  roleBirth('Spawn2', birthcreep2);
 
   // Link
   // const linkFromWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
