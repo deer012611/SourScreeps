@@ -430,7 +430,7 @@ export default ErrorMapper.wrapLoop(() => {
   var birthcreep2 = [
     {
       creepName: 'transporter-spawn2',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -442,7 +442,7 @@ export default ErrorMapper.wrapLoop(() => {
       creepNum: 2,
       creepProperty: [
         [WORK, WORK, CARRY, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, MOVE],
         [WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
       ]
     }

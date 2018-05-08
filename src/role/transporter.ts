@@ -44,7 +44,12 @@ export const roleTransporter = (creep: Creep, myspawn) => {
   });
   // function harvest() {
   const harvest = (creep: Creep) => {
-    if (targetLink[1] !== undefined && targetLink[1].energy > 0) {
+    if (targetSTORAGE) {
+      if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
+        creep.say('😍');
+      }
+    } else if (targetLink[1] !== undefined && targetLink[1].energy > 0) {
       // console.log(creep.name, 1);
       if (creep.withdraw(targetLink[1], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.travelTo(targetLink[1], { visualizePathStyle: { stroke: '#ffaa00' } });
@@ -145,20 +150,24 @@ export const roleTransporter = (creep: Creep, myspawn) => {
 
   // ----
   if (creep.memory.transporting) {
-    harvest(creep);
-  } else {
-    // if (targetLink[1] && targetLink[2]) {
-    //   if (targetLink[1].energy === 800 && targetLink[2].energy === 800) {
-    //     if (creep.transfer(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-    //       creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffffff' } });
-    //     }
-    //   }
-    // } else {
-    // fixNearby(creep);
-    if (targetLink[1] || targetsdrop[0] || targetCONTAINER) {
-      fixNearby(creep);
+    if (targetLink[1].energy > 0) {
+      if (creep.withdraw(targetLink[1], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetLink[1], { visualizePathStyle: { stroke: '#ff00e4' } });
+      }
+    } else {
+      harvest(creep);
     }
-    transport(creep);
-    // }
+  } else {
+    if (targetLink[1].energy > 0) {
+      if (creep.transfer(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ff00e4' } });
+      }
+    } else {
+      // fixNearby(creep);
+      if (targetLink[1] || targetsdrop[0] || targetCONTAINER) {
+        fixNearby(creep);
+      }
+      transport(creep);
+    }
   }
 };

@@ -85,7 +85,7 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
   }
   const gohome = (creep: Creep) => {
     if (creep.room.name !== 'E8N44') {
-      creep.travelTo(Game.flags['Flag1']);
+      creep.travelTo(Game.spawns['E8N44']);
       // 回家
       // const exitDir2 = Game.map.findExit(Game.flags[flag].room.name, 'E8N44');
       // const exitToMyRoom = creep.pos.findClosestByRange(exitDir2);
@@ -131,7 +131,7 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
     goout(creep);
   } else {
     fixNearby(creep);
-    if (targetsBuild) {
+    if (targetsBuild && creep.room.name !== 'E8N44') {
       if (creep.build(targetsBuild) === ERR_NOT_IN_RANGE) {
         creep.travelTo(targetsBuild, { visualizePathStyle: { stroke: '#ffffff' } });
       }
