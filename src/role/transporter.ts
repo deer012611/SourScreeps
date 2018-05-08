@@ -44,7 +44,7 @@ export const roleTransporter = (creep: Creep, myspawn) => {
   });
   // function harvest() {
   const harvest = (creep: Creep) => {
-    if (targetSTORAGE && targetSTORAGE.store > 0) {
+    if (targetSTORAGE && targetSTORAGE.store[RESOURCE_ENERGY] > 0) {
       if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
         creep.say('😍');

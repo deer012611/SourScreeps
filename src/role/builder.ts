@@ -25,10 +25,17 @@ export const roleBuilder = (creep: Creep, flag: string) => {
       );
     }
   });
+  var targetsWall = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {
+    filter: structure => {
+      return structure.structureType === 'constructedWall';
+    }
+  });
   if (targetsOther) {
     targets = targetsOther;
-  } else {
+  } else if (targetsRoad) {
     targets = targetsRoad;
+  } else {
+    targets = targetsWall;
   }
   // 建造、修理战壕
   var buildRampart = creep.pos.findClosestByPath(FIND_MY_CONSTRUCTION_SITES, {

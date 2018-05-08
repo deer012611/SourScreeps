@@ -1,3 +1,4 @@
+import { fixNearby } from '../function/function';
 export const roleOutDig = (creep: Creep, flag: string) => {
   const goout = (creep: Creep, flag: string) => {
     if (Game.flags[flag].room === undefined) {
@@ -10,6 +11,7 @@ export const roleOutDig = (creep: Creep, flag: string) => {
         // const exitToAnotherRoom = creep.pos.findClosestByRange(exitDir);
         // creep.travelTo(exitToAnotherRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
       } else {
+        fixNearby(creep);
         var sources = creep.room.cacheFind(FIND_SOURCES);
         if (sources[0]) {
           if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {

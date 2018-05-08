@@ -141,7 +141,6 @@ export const roleBirth = (SPAWN: string, CREEP: array) => {
       }
     });
     // transporter
-    console.log(n.length, _property[0], _name.split('-')[0]);
     if (_name.split('-')[0] === 'transporter') {
       if (n.length < 2) {
         p = _property[0];

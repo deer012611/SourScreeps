@@ -43,7 +43,7 @@ export default ErrorMapper.wrapLoop(() => {
   var birthcreep = [
     {
       creepName: 'transporter',
-      creepNum: 2,
+      creepNum: 3,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -124,76 +124,36 @@ export default ErrorMapper.wrapLoop(() => {
       creepName: 'outDig-Flag2',
       creepNum: 1,
       creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+        [WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
       ]
     },
     {
       creepName: 'outDig-Flag3',
       creepNum: 0,
       creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+        [WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
       ]
     },
     {
       creepName: 'outDig-Flag4',
-      creepNum: 0,
+      creepNum: 1,
       creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
+        [WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
       ]
     },
     {
       creepName: 'outDig-Flag5',
       creepNum: 0,
       creepProperty: [
-        [WORK, WORK, MOVE],
-        [WORK, WORK, WORK, MOVE],
-        [WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE]
-      ]
-    },
-    {
-      creepName: 'outTransporter-Flag1',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          WORK,
-          CARRY,
-          CARRY,
-          MOVE
-        ]
+        [WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
       ]
     },
     {
@@ -227,50 +187,16 @@ export default ErrorMapper.wrapLoop(() => {
       ]
     },
     {
-      creepName: 'outTransporter-Flag3',
-      creepNum: 0,
+      // XX-开采房间-送达房间
+      creepName: 'outTransporter-Flag4-Spawn2',
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
         [
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
           WORK,
           CARRY,
           CARRY,
-          MOVE
-        ]
-      ]
-    },
-    {
-      creepName: 'outTransporter-Flag4',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
           CARRY,
           CARRY,
           CARRY,
@@ -282,53 +208,11 @@ export default ErrorMapper.wrapLoop(() => {
           CARRY,
           CARRY,
           MOVE,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
           MOVE,
           MOVE,
           MOVE,
           MOVE,
           MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          WORK,
-          CARRY,
-          CARRY,
-          MOVE
-        ]
-      ]
-    },
-    {
-      creepName: 'outTransporter-Flag5',
-      creepNum: 0,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          WORK,
-          CARRY,
           MOVE
         ]
       ]
@@ -344,7 +228,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'builder-Flag3',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -384,7 +268,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'solider-Flag4',
-      creepNum: 0,
+      creepNum: 1,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     },
     {
@@ -518,43 +402,7 @@ export default ErrorMapper.wrapLoop(() => {
   for (name in Game.creeps) {
     var creep = Game.creeps[name];
     //
-    // var creepRole = creep.name.split('-')[0];
-    // var creepType = creep.name.split('-')[1];
-    //
-    // if (creepRole === 'upgrader') {
-    //   roleUpgrader(creep);
-    // }
-    // if (creepRole === 'builder') {
-    //   roleBuilder(creep);
-    // }
-    // if (creepRole === 'transporter') {
-    //   roleTransporter(creep);
-    // }
-    // if (creepRole === 'dig-1' || creepRole === 'dig-2') {
-    //   if (creepType === '1') {
-    //     roleDig(creep, '59f1a38382100e1594f3ba5d');
-    //   } else if (creepType === '2') {
-    //     roleDig(creep, '59f1a38382100e1594f3ba5e');
-    //   }
-    // }
-    // if (creepRole === 'builder') {
-    //   roleBuilder(creep, creepType);
-    // }
-    // if (creepRole === 'outDig') {
-    //   roleOutDig(creep, creepType);
-    // }
-    // if (creepRole === 'outTransporter') {
-    //   roleBuilder(creep, creepType);
-    // }
-    // if (creepRole === 'solider') {
-    //   roleBuilder(creep, creepType);
-    // }
-    // if (creepRole === 'engineer') {
-    //   roleEngineer(creep);
-    // }
-
-    //
-    if (creep.memory.role === 'upgrader' || creep.memory.role === 'upgrader-Flag3') {
+    if (creep.memory.role.split('-')[0] === 'upgrader') {
       var upgraderFlagPos = creep.name.split('-');
       roleUpgrader(creep, upgraderFlagPos[1]);
     }
@@ -573,41 +421,19 @@ export default ErrorMapper.wrapLoop(() => {
         roleDig(creep, '59f1a38382100e1594f3ba5e');
       }
     }
-    if (
-      creep.memory.role === 'builder-Flag2' ||
-      creep.memory.role === 'builder-Flag3' ||
-      creep.memory.role === 'builder-Flag4' ||
-      creep.memory.role === 'builder-Flag6'
-    ) {
+    if (creep.memory.role.split('-')[0] === 'builder') {
       var buildFlagPos = creep.name.split('-');
       roleBuilder(creep, buildFlagPos[1]);
     }
-    if (
-      creep.memory.role === 'outDig-Flag2' ||
-      creep.memory.role === 'outDig-Flag3' ||
-      creep.memory.role === 'outDig-Flag4' ||
-      creep.memory.role === 'outDig-Flag5'
-    ) {
+    if (creep.memory.role.split('-')[0] === 'outDig') {
       var digFlagPos = creep.name.split('-');
       roleOutDig(creep, digFlagPos[1]);
     }
-    if (
-      creep.memory.role === 'outTransporter-Flag1' ||
-      creep.memory.role === 'outTransporter-Flag2' ||
-      creep.memory.role === 'outTransporter-Flag3' ||
-      creep.memory.role === 'outTransporter-Flag4' ||
-      creep.memory.role === 'outTransporter-Flag5'
-    ) {
+    if (creep.memory.role.split('-')[0] === 'outTransporter') {
       var transFlagPos = creep.name.split('-');
-      roleOutTransporter(creep, transFlagPos[1]);
+      roleOutTransporter(creep, transFlagPos[1], transFlagPos[3] ? transFlagPos[2] : 'Spawn1');
     }
-    if (
-      creep.memory.role === 'solider-Flag2' ||
-      creep.memory.role === 'solider-Flag3' ||
-      creep.memory.role === 'solider-Flag4' ||
-      creep.memory.role === 'solider-Flag5' ||
-      creep.memory.role === 'solider-Flag6'
-    ) {
+    if (creep.memory.role.split('-')[0] === 'solider') {
       var soliderFlagPos = creep.name.split('-');
       roleSolider(creep, soliderFlagPos[1]);
     }
