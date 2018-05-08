@@ -152,15 +152,15 @@ export const roleTransporter = (creep: Creep, myspawn) => {
   if (creep.memory.transporting) {
     if (targetLink[1] && targetLink[1].energy > 0) {
       if (creep.withdraw(targetLink[1], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.travelTo(targetLink[1], { visualizePathStyle: { stroke: '#ff00e4' } });
+        creep.travelTo(targetLink[1]);
       }
     } else {
       harvest(creep);
     }
   } else {
-    if (targetLink[1].energy > 0) {
+    if (targetLink[1] && targetLink[1].energy > 0) {
       if (creep.transfer(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-        creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ff00e4' } });
+        creep.travelTo(targetSTORAGE);
       }
     } else {
       // fixNearby(creep);
