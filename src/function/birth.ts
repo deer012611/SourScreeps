@@ -141,7 +141,8 @@ export const roleBirth = (SPAWN: string, CREEP: array) => {
       }
     });
     // transporter
-    if (_name === 'transporter') {
+    console.log(n.length, _property[0], _name.split('-')[0]);
+    if (_name.split('-')[0] === 'transporter') {
       if (n.length < 2) {
         p = _property[0];
       } else if (extensions.length <= 5) {
@@ -149,7 +150,7 @@ export const roleBirth = (SPAWN: string, CREEP: array) => {
       } else if (extensions.length >= 10) {
         p = _property[2];
       }
-    } else if (_name === 'dig') {
+    } else if (_name.split('-')[0] === 'dig') {
       // dig
       if (extensions.length <= 5) {
         p = _property[1];
@@ -158,7 +159,7 @@ export const roleBirth = (SPAWN: string, CREEP: array) => {
       } else if (extensions.length >= 10) {
         p = _property[2];
       }
-    } else if (_property[2] && _name !== 'transporter') {
+    } else if (_property[2] && _name.split('-')[0] !== 'transporter') {
       // 其他
       if (extensions.length === 0) {
         p = _property[0];

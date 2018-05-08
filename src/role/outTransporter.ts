@@ -34,6 +34,11 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
       );
     }
   });
+  var targetsLinkNear = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+    filter: structure => {
+      return structure.structureType === STRUCTURE_LINK;
+    }
+  });
   var targets = creep.pos.findClosestByRange(FIND_STRUCTURES, {
     filter: structure => {
       return (
@@ -85,13 +90,30 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
   }
   const gohome = (creep: Creep) => {
     if (creep.room.name !== 'E8N44') {
-      creep.travelTo(Game.spawns['E8N44']);
+      console.log('not home', creep);
+      creep.travelTo(Game.flags['Flag1']);
       // 回家
       // const exitDir2 = Game.map.findExit(Game.flags[flag].room.name, 'E8N44');
       // const exitToMyRoom = creep.pos.findClosestByRange(exitDir2);
       // creep.travelTo(exitToMyRoom, { visualizePathStyle: { stroke: '#ffaa00' } });
     } else {
-      if (flag !== 'Flag2' && flag !== 'Flag1') {
+      console.log('home', creep);
+      if (flag === 'Flag1') {
+        if (targets) {
+          if (creep.transfer(targets, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
+          }
+        } else {
+          if (creep.transfer(targetStorage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(targetStorage, { visualizePathStyle: { stroke: '#ffffff' } });
+          }
+        }
+      } else if (flag === 'Flag2') {
+        console.log('Target Link Near');
+        if (creep.transfer(targetsLinkNear, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.travelTo(targetsLinkNear, { visualizePathStyle: { stroke: '#ffffff' } });
+        }
+      } else if (flag !== 'Flag2' && flag !== 'Flag1') {
         var targetLinkWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
         var targetLinkSource = Game.getObjectById('5ac212ecac37e47fd05a46a3');
         if (targetLinkWall.energy !== targetLinkWall.energyCapacity) {
@@ -101,16 +123,6 @@ export const roleOutTransporter = (creep: Creep, flag: string) => {
         } else {
           if (creep.transfer(targetLinkSource, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.travelTo(targetLinkSource, { visualizePathStyle: { stroke: '#ffffff' } });
-          }
-        }
-      } else if (flag === 'Flag1') {
-        if (targets) {
-          if (creep.transfer(targets, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(targets, { visualizePathStyle: { stroke: '#ffffff' } });
-          }
-        } else {
-          if (creep.transfer(targetStorage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(targetStorage, { visualizePathStyle: { stroke: '#ffffff' } });
           }
         }
       } else {

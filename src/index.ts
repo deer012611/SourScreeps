@@ -43,7 +43,7 @@ export default ErrorMapper.wrapLoop(() => {
   var birthcreep = [
     {
       creepName: 'transporter',
-      creepNum: 3,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -461,14 +461,14 @@ export default ErrorMapper.wrapLoop(() => {
   roleBirth('Spawn2', birthcreep2);
 
   // Link
-  // const linkFromWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
+  const linkFromWall = Game.getObjectById('5af0599fd417793950607dd3');
   const linkFromSource = Game.getObjectById('5adea4dbcd89a7456f1b0ee6');
 
   var linkTo = Game.getObjectById('5adeada83064b30ef970b24d');
   if (linkFromSource) {
-    // if (linkFromWall.energy === linkFromWall.energyCapacity && linkTo.energy === 0) {
-    //   linkFromWall.transferEnergy(linkTo, 800);
-    // }
+    if (linkFromWall.energy === linkFromWall.energyCapacity && linkTo.energy === 0) {
+      linkFromWall.transferEnergy(linkTo, 800);
+    }
     if (linkFromSource.energy === linkFromSource.energyCapacity && linkTo.energy === 0) {
       linkFromSource.transferEnergy(linkTo, 800);
     }
