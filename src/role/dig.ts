@@ -1,3 +1,4 @@
+import { fixNearby } from '../function/function';
 export const roleDig = (creep: Creep, mineID: string) => {
   var sources = Game.getObjectById(mineID);
   var targetLink = Game.getObjectById('5adea4dbcd89a7456f1b0ee6');
@@ -31,6 +32,7 @@ export const roleDig = (creep: Creep, mineID: string) => {
             }
             // }
           } else {
+            console.log(creep, fixNearby(creep));
             if (creep.transfer(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
               creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
             }

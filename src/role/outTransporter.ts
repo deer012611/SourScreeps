@@ -115,13 +115,16 @@ export const roleOutTransporter = (creep: Creep, flag: string, targetroom: strin
           creep.travelTo(targetsLinkNear, { visualizePathStyle: { stroke: '#ffffff' } });
         }
       } else if (flag !== 'Flag2' && flag !== 'Flag1') {
+        console.log(creep, 1);
         var targetLinkWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
         var targetLinkSource = Game.getObjectById('5ac212ecac37e47fd05a46a3');
         if (targetLinkWall && targetLinkWall.energy !== targetLinkWall.energyCapacity) {
+          console.log(creep, 2);
           if (creep.transfer(targetLinkWall, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.travelTo(targetLinkWall, { visualizePathStyle: { stroke: '#ffffff' } });
           }
         } else if (targetLinkSource) {
+          console.log(creep, 3);
           if (creep.transfer(targetLinkSource, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
             creep.travelTo(targetLinkSource, { visualizePathStyle: { stroke: '#ffffff' } });
           }

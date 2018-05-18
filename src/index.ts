@@ -100,7 +100,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'builder',
-      creepNum: 2,
+      creepNum: 3,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -109,7 +109,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'engineer',
-      creepNum: 1,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, CARRY, CARRY, MOVE, MOVE, MOVE]
@@ -149,7 +149,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'outDig-Flag5',
-      creepNum: 0,
+      creepNum: 1,
       creepProperty: [
         [WORK, WORK, CARRY, MOVE],
         [WORK, WORK, WORK, CARRY, MOVE],
@@ -158,6 +158,36 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'outTransporter-Flag2',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          WORK,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'outTransporter-Flag5',
       creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
@@ -273,7 +303,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'solider-Flag5',
-      creepNum: 0,
+      creepNum: 1,
       creepProperty: [[WORK, MOVE, MOVE, CLAIM, CLAIM], [WORK, MOVE, MOVE, CLAIM, CLAIM]]
     },
     {
@@ -283,7 +313,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'upgrader-Flag3',
-      creepNum: 2,
+      creepNum: 0,
       creepProperty: [
         [WORK, CARRY, MOVE],
         // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -329,17 +359,42 @@ export default ErrorMapper.wrapLoop(() => {
         [WORK, WORK, WORK, WORK, WORK, MOVE],
         [WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
       ]
+    },
+    {
+      creepName: 'upgrader-spawn2',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE],
+        [
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          WORK,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
+      ]
     }
     // {
     //   creepName: 'dig-spawn2-2',
     //   creepNum: 2,
     //   creepProperty: [[WORK, WORK, MOVE], [WORK, WORK, MOVE], [WORK, WORK, MOVE]]
     // },
-    // {
-    //   creepName: 'upgrader-spawn2',
-    //   creepNum: 2,
-    //   creepProperty: [[WORK, CARRY, MOVE], [WORK, CARRY, MOVE], [WORK, CARRY, MOVE]]
-    // }
   ];
   roleBirth('Spawn1', birthcreep);
   roleBirth('Spawn2', birthcreep2);
@@ -361,6 +416,7 @@ export default ErrorMapper.wrapLoop(() => {
   // 防御塔
   var tower1 = Game.getObjectById('5ad97283beafc0400a8f0048');
   var tower2 = Game.getObjectById('5adee3200409f23c73cecb24');
+  var tower3 = Game.getObjectById('5ae19a847b95733323a78f56');
 
   const towercontrol = tower => {
     if (tower) {
@@ -395,6 +451,7 @@ export default ErrorMapper.wrapLoop(() => {
   };
   towercontrol(tower1);
   towercontrol(tower2);
+  towercontrol(tower3);
 
   //
   // var attactcreep = Game.spawns['E9N44'].room.find(FIND_HOSTILE_CREEPS);
