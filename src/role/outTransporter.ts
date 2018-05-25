@@ -79,9 +79,10 @@ export const roleOutTransporter = (creep: Creep, flag: string, targetroom: strin
           }
         } else {
           var sources = creep.room.cacheFind(FIND_SOURCES);
+          var _sources = flag === 'Flag6' ? sources[1] : sources[0];
           if (sources) {
-            if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
-              creep.travelTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+            if (creep.harvest(_sources) === ERR_NOT_IN_RANGE) {
+              creep.travelTo(_sources, { visualizePathStyle: { stroke: '#ffaa00' } });
             }
           }
         }
@@ -89,9 +90,6 @@ export const roleOutTransporter = (creep: Creep, flag: string, targetroom: strin
     }
   }
   const gohome = (creep: Creep, targetroom: string) => {
-    console.log(targetroom);
-    console.log(creep + '送达房间：  ' + Game.spawns[targetroom].room.name);
-
     if (creep.room.name !== Game.spawns[targetroom].room.name) {
       creep.travelTo(Game.spawns[targetroom]);
       // 回家
@@ -110,23 +108,17 @@ export const roleOutTransporter = (creep: Creep, flag: string, targetroom: strin
           }
         }
       } else if (flag === 'Flag2') {
-        console.log('Target Link Near');
         if (creep.transfer(targetsLinkNear, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.travelTo(targetsLinkNear, { visualizePathStyle: { stroke: '#ffffff' } });
         }
       } else if (flag !== 'Flag2' && flag !== 'Flag1') {
-        console.log(creep, 1);
-        var targetLinkWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
-        var targetLinkSource = Game.getObjectById('5ac212ecac37e47fd05a46a3');
-        if (targetLinkWall && targetLinkWall.energy !== targetLinkWall.energyCapacity) {
-          console.log(creep, 2);
-          if (creep.transfer(targetLinkWall, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(targetLinkWall, { visualizePathStyle: { stroke: '#ffffff' } });
-          }
-        } else if (targetLinkSource) {
-          console.log(creep, 3);
-          if (creep.transfer(targetLinkSource, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(targetLinkSource, { visualizePathStyle: { stroke: '#ffffff' } });
+        var targetLinkSource = creep.room.links;
+        // var targetLinkWall = Game.getObjectById('5ad43d23ad602d2f8786d4fe');
+        // var targetLinkSource = Game.getObjectById('5adea4dbcd89a7456f1b0ee6');
+        if (targetLinkSource[1]) {
+          console.log(12222222, targetLinkSource[1], creep);
+          if (creep.transfer(targetLinkSource[1], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(targetLinkSource[1], { visualizePathStyle: { stroke: '#ffffff' } });
           }
         } else if (targetsTower) {
           if (creep.transfer(targetsTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {

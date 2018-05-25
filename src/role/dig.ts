@@ -14,35 +14,37 @@ export const roleDig = (creep: Creep, mineID: string) => {
         creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
       }
     } else {
-      if (targetLink) {
-        if (targetLink.energy < targetLink.energyCapacity) {
-          if (creep.carry.energy < creep.carryCapacity) {
-            var targetsdrop = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
-            if (sources.energy !== 0) {
-              if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
-                creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+      try {
+        if (targetLink) {
+          if (targetLink.energy < targetLink.energyCapacity) {
+            if (creep.carry.energy < creep.carryCapacity) {
+              var targetsdrop = creep.pos.findClosestByRange(FIND_DROPPED_RESOURCES);
+              if (sources.energy !== 0) {
+                if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
+                  creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+                }
+              } else if (targetsdrop) {
+                creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
+              } else if (targetContainer.energy !== 0) {
+                if (creep.withdraw(targetContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+                  creep.travelTo(targetContainer, { visualizePathStyle: { stroke: '#ffaa00' } });
+                }
+              } else {
               }
-            } else if (targetsdrop) {
-              creep.pickup(targetsdrop, { visualizePathStyle: { stroke: '#ffffff' } });
-            } else if (targetContainer.energy !== 0) {
-              if (creep.withdraw(targetContainer, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-                creep.travelTo(targetContainer, { visualizePathStyle: { stroke: '#ffaa00' } });
-              }
+              // }
             } else {
-            }
-            // }
-          } else {
-            console.log(creep, fixNearby(creep));
-            if (creep.transfer(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-              creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
+              console.log(creep, fixNearby(creep));
+              if (creep.transfer(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+                creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffffff' } });
+              }
             }
           }
+        } else {
+          if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
+          }
         }
-      } else {
-        if (creep.harvest(sources) === ERR_NOT_IN_RANGE) {
-          creep.travelTo(sources, { visualizePathStyle: { stroke: '#ffaa00' } });
-        }
-      }
+      } catch (e) {}
     }
   };
   if (creep.memory.role === 'dig-2') {

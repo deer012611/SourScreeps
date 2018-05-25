@@ -13,9 +13,10 @@ export const roleOutDig = (creep: Creep, flag: string) => {
       } else {
         fixNearby(creep);
         var sources = creep.room.cacheFind(FIND_SOURCES);
+        var _sources = flag === 'Flag6' ? sources[1] : sources[0];
         if (sources[0]) {
-          if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
-            creep.travelTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });
+          if (creep.harvest(_sources) === ERR_NOT_IN_RANGE) {
+            creep.travelTo(_sources, { visualizePathStyle: { stroke: '#ffaa00' } });
           }
         }
       }

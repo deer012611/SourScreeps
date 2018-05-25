@@ -3,118 +3,120 @@ export const roleBirth = (SPAWN: string, CREEP: array) => {
   var creep = [];
   creep = CREEP;
 
-  // 看builder的数量小于3，就先生产builder
-  var buildsnum = _.filter(Game.creeps, creep => creep.memory.role === 'builder');
-  if (buildsnum.length < 2) {
-    creep = [
-      {
-        creepName: 'builder',
-        creepNum: 2,
-        creepProperty: [
-          [WORK, CARRY, MOVE],
-          [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
-          [WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
-        ]
-      }
-    ];
-  }
-  // 看dig的数量小于3，就先生产dig
-  var digsnum = _.filter(Game.creeps, creep => creep.memory.role === 'dig-1');
-  if (digsnum.length < 1) {
-    creep = [
-      {
-        creepName: 'dig-1',
-        creepNum: 1,
-        creepProperty: [
-          [WORK, WORK, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, MOVE]
-        ]
-      }
-    ];
-  }
-
-  // 看dig的数量小于3，就先生产dig
-  var digs2num = _.filter(Game.creeps, creep => creep.memory.role === 'dig-2');
-  if (digs2num.length < 1) {
-    creep = [
-      {
-        creepName: 'dig-2',
-        creepNum: 1,
-        creepProperty: [
-          [WORK, WORK, CARRY, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
-        ]
-      }
-    ];
-  }
-
-  // 看upgrader的数量小于3，就先生产upgrader
-  var upgradernum = _.filter(Game.creeps, creep => creep.memory.role === 'upgrader');
-  if (upgradernum.length < 3) {
-    creep = [
-      {
-        creepName: 'upgrader',
-        creepNum: 3,
-        creepProperty: [
-          [WORK, CARRY, MOVE],
-          // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-          [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
-          [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE],
-          [
-            WORK,
-            WORK,
-            WORK,
-            WORK,
-            WORK,
-            WORK,
-            WORK,
-            WORK,
-            CARRY,
-            CARRY,
-            CARRY,
-            CARRY,
-            MOVE,
-            MOVE,
-            MOVE,
-            MOVE,
-            MOVE,
-            MOVE
+  if (SPAWN === 'Spawn1' || SPAWN === 'Spawn2') {
+    // 看builder的数量小于3，就先生产builder
+    var buildsnum = _.filter(Game.creeps, creep => creep.memory.role === 'builder');
+    if (buildsnum.length < 2) {
+      creep = [
+        {
+          creepName: 'builder',
+          creepNum: 2,
+          creepProperty: [
+            [WORK, CARRY, MOVE],
+            [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
+            [WORK, WORK, WORK, WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE]
           ]
-        ]
-      }
-    ];
-  }
-  // 看transporter的数量小于3，就先生产transporter
-  var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
-  if (transnum.length < 2) {
-    creep = [
-      {
-        creepName: 'transporter',
-        creepNum: 2,
-        creepProperty: [
-          [WORK, CARRY, MOVE],
-          [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
-          [
-            WORK,
-            WORK,
-            CARRY,
-            CARRY,
-            CARRY,
-            CARRY,
-            CARRY,
-            CARRY,
-            CARRY,
-            MOVE,
-            MOVE,
-            MOVE,
-            MOVE,
-            MOVE
+        }
+      ];
+    }
+    // 看dig的数量小于3，就先生产dig
+    var digsnum = _.filter(Game.creeps, creep => creep.memory.role === 'dig-1');
+    if (digsnum.length < 1) {
+      creep = [
+        {
+          creepName: 'dig-1',
+          creepNum: 1,
+          creepProperty: [
+            [WORK, WORK, MOVE],
+            [WORK, WORK, WORK, WORK, WORK, MOVE],
+            [WORK, WORK, WORK, WORK, WORK, WORK, WORK, MOVE]
           ]
-        ]
-      }
-    ];
+        }
+      ];
+    }
+
+    // 看dig的数量小于3，就先生产dig
+    var digs2num = _.filter(Game.creeps, creep => creep.memory.role === 'dig-2');
+    if (digs2num.length < 1) {
+      creep = [
+        {
+          creepName: 'dig-2',
+          creepNum: 1,
+          creepProperty: [
+            [WORK, WORK, CARRY, MOVE],
+            [WORK, WORK, WORK, WORK, WORK, CARRY, MOVE],
+            [WORK, WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE]
+          ]
+        }
+      ];
+    }
+
+    // 看upgrader的数量小于3，就先生产upgrader
+    var upgradernum = _.filter(Game.creeps, creep => creep.memory.role === 'upgrader');
+    if (upgradernum.length < 1) {
+      creep = [
+        {
+          creepName: 'upgrader',
+          creepNum: 3,
+          creepProperty: [
+            [WORK, CARRY, MOVE],
+            // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+            [WORK, WORK, WORK, CARRY, MOVE, MOVE, MOVE],
+            [WORK, WORK, WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE],
+            [
+              WORK,
+              WORK,
+              WORK,
+              WORK,
+              WORK,
+              WORK,
+              WORK,
+              WORK,
+              CARRY,
+              CARRY,
+              CARRY,
+              CARRY,
+              MOVE,
+              MOVE,
+              MOVE,
+              MOVE,
+              MOVE,
+              MOVE
+            ]
+          ]
+        }
+      ];
+    }
+    // 看transporter的数量小于3，就先生产transporter
+    var transnum = _.filter(Game.creeps, creep => creep.memory.role === 'transporter');
+    if (transnum.length < 2) {
+      creep = [
+        {
+          creepName: 'transporter',
+          creepNum: 2,
+          creepProperty: [
+            [WORK, CARRY, MOVE],
+            [WORK, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
+            [
+              WORK,
+              WORK,
+              CARRY,
+              CARRY,
+              CARRY,
+              CARRY,
+              CARRY,
+              CARRY,
+              CARRY,
+              MOVE,
+              MOVE,
+              MOVE,
+              MOVE,
+              MOVE
+            ]
+          ]
+        }
+      ];
+    }
   }
 
   for (var i = 0; i < creep.length; i++) {
@@ -142,7 +144,7 @@ export const roleBirth = (SPAWN: string, CREEP: array) => {
     });
     // transporter
     if (_name.split('-')[0] === 'transporter') {
-      if (n.length < 2) {
+      if (n.length < 1) {
         p = _property[0];
       } else if (extensions.length <= 5) {
         p = _property[0];

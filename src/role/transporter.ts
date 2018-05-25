@@ -158,7 +158,11 @@ export const roleTransporter = (creep: Creep, myspawn) => {
       harvest(creep);
     }
   } else {
-    if (targetLink[1] && targetLink[1].energy > 0) {
+    if (
+      targetLink[1] &&
+      targetLink[1].energy > 0 &&
+      targetSTORAGE.store[RESOURCE_ENERGY] !== targetSTORAGE.storeCapacity
+    ) {
       if (creep.transfer(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.travelTo(targetSTORAGE);
       }

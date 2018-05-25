@@ -27,7 +27,7 @@ export const roleUpgrader = (creep: Creep, flag: string) => {
         if (creep.withdraw(containersWithEnergy, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.travelTo(containersWithEnergy, { visualizePathStyle: { stroke: '#ffaa00' } });
         }
-      } else if (targetSTORAGE && targetSTORAGE.store > 0) {
+      } else if (targetSTORAGE && targetSTORAGE.store[RESOURCE_ENERGY] > 0) {
         // else if (targetLink.energy > 0) {
         //   if (creep.withdraw(targetLink, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         //     creep.travelTo(targetLink, { visualizePathStyle: { stroke: '#ffaa00' } });
@@ -35,7 +35,7 @@ export const roleUpgrader = (creep: Creep, flag: string) => {
         //   }
         // }
         if (creep.withdraw(targetSTORAGE, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.travelTo(targetSTORAGE, { visualizePathStyle: { stroke: '#ffaa00' } });
+          creep.travelTo(targetSTORAGE);
         }
       } else {
         if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {

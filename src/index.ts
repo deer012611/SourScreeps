@@ -70,7 +70,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'upgrader',
-      creepNum: 4,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -100,7 +100,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'builder',
-      creepNum: 3,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, WORK, WORK, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -109,16 +109,11 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'engineer',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, CARRY, MOVE],
         [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, CARRY, CARRY, MOVE, MOVE, MOVE]
       ]
-    },
-    {
-      creepName: 'attactSolider',
-      creepNum: 0,
-      creepProperty: [[WORK, CARRY, MOVE, ATTACK], [WORK, CARRY, MOVE, ATTACK]]
     },
     {
       creepName: 'outDig-Flag2',
@@ -217,37 +212,6 @@ export default ErrorMapper.wrapLoop(() => {
       ]
     },
     {
-      // XX-开采房间-送达房间
-      creepName: 'outTransporter-Flag4-Spawn2',
-      creepNum: 1,
-      creepProperty: [
-        [WORK, CARRY, MOVE],
-        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
-        [
-          WORK,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          CARRY,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE,
-          MOVE
-        ]
-      ]
-    },
-    {
       creepName: 'builder-Flag2',
       creepNum: 0,
       creepProperty: [
@@ -313,7 +277,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'upgrader-Flag3',
-      creepNum: 0,
+      creepNum: 2,
       creepProperty: [
         [WORK, CARRY, MOVE],
         // [WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE],
@@ -339,6 +303,11 @@ export default ErrorMapper.wrapLoop(() => {
           MOVE
         ]
       ]
+    },
+    {
+      creepName: 'attactSolider',
+      creepNum: 0,
+      creepProperty: [[WORK, CARRY, MOVE, ATTACK], [WORK, CARRY, MOVE, ATTACK]]
     }
   ];
   var birthcreep2 = [
@@ -353,7 +322,7 @@ export default ErrorMapper.wrapLoop(() => {
     },
     {
       creepName: 'dig-spawn2-1',
-      creepNum: 2,
+      creepNum: 1,
       creepProperty: [
         [WORK, WORK, CARRY, MOVE],
         [WORK, WORK, WORK, WORK, WORK, MOVE],
@@ -389,6 +358,82 @@ export default ErrorMapper.wrapLoop(() => {
           MOVE
         ]
       ]
+    },
+    {
+      // XX-开采房间-送达房间
+      creepName: 'outTransporter-Flag4-Spawn2',
+      creepNum: 2,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          WORK,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
+      ]
+    },
+    {
+      // XX-开采房间-送达房间
+      creepName: 'outTransporter-Flag6-Spawn2',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, CARRY, MOVE],
+        [WORK, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+        [
+          WORK,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          CARRY,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE,
+          MOVE
+        ]
+      ]
+    },
+    {
+      creepName: 'outDig-Flag6',
+      creepNum: 0,
+      creepProperty: [
+        [WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, CARRY, MOVE],
+        [WORK, WORK, WORK, WORK, WORK, WORK, CARRY, MOVE, MOVE]
+      ]
+    },
+    {
+      creepName: 'solider-Flag6',
+      creepNum: 0,
+      creepProperty: [[WORK, MOVE, MOVE, CLAIM], [WORK, MOVE, MOVE, CLAIM]]
     }
     // {
     //   creepName: 'dig-spawn2-2',
@@ -404,6 +449,8 @@ export default ErrorMapper.wrapLoop(() => {
   const linkFromSource = Game.getObjectById('5adea4dbcd89a7456f1b0ee6');
 
   var linkTo = Game.getObjectById('5adeada83064b30ef970b24d');
+  var linkToSource2 = Game.getObjectById('5af7a57ef6b01339a9cb5b97');
+
   if (linkFromSource) {
     if (linkFromWall.energy === linkFromWall.energyCapacity && linkTo.energy === 0) {
       linkFromWall.transferEnergy(linkTo, 800);
@@ -411,12 +458,16 @@ export default ErrorMapper.wrapLoop(() => {
     if (linkFromSource.energy === linkFromSource.energyCapacity && linkTo.energy === 0) {
       linkFromSource.transferEnergy(linkTo, 800);
     }
+    if (linkFromSource.energy === linkFromSource.energyCapacity && linkTo.energy === 0) {
+      linkFromSource.transferEnergy(linkToSource2, 800);
+    }
   }
 
   // 防御塔
   var tower1 = Game.getObjectById('5ad97283beafc0400a8f0048');
   var tower2 = Game.getObjectById('5adee3200409f23c73cecb24');
   var tower3 = Game.getObjectById('5ae19a847b95733323a78f56');
+  var tower4 = Game.getObjectById('5af7ab8f2d04d70cc3c46a6d');
 
   const towercontrol = tower => {
     if (tower) {
@@ -452,6 +503,7 @@ export default ErrorMapper.wrapLoop(() => {
   towercontrol(tower1);
   towercontrol(tower2);
   towercontrol(tower3);
+  towercontrol(tower4);
 
   //
   // var attactcreep = Game.spawns['E9N44'].room.find(FIND_HOSTILE_CREEPS);
@@ -460,8 +512,7 @@ export default ErrorMapper.wrapLoop(() => {
     var creep = Game.creeps[name];
     //
     if (creep.memory.role.split('-')[0] === 'upgrader') {
-      var upgraderFlagPos = creep.name.split('-');
-      roleUpgrader(creep, upgraderFlagPos[1]);
+      roleUpgrader(creep, creep.name.split('-')[1]);
     }
     if (creep.memory.role === 'builder') {
       roleBuilder(creep);
@@ -479,39 +530,34 @@ export default ErrorMapper.wrapLoop(() => {
       }
     }
     if (creep.memory.role.split('-')[0] === 'builder') {
-      var buildFlagPos = creep.name.split('-');
-      roleBuilder(creep, buildFlagPos[1]);
+      roleBuilder(creep, creep.name.split('-')[1]);
     }
     if (creep.memory.role.split('-')[0] === 'outDig') {
-      var digFlagPos = creep.name.split('-');
-      roleOutDig(creep, digFlagPos[1]);
+      roleOutDig(creep, creep.name.split('-')[1]);
     }
     if (creep.memory.role.split('-')[0] === 'outTransporter') {
       var transFlagPos = creep.name.split('-');
       roleOutTransporter(creep, transFlagPos[1], transFlagPos[3] ? transFlagPos[2] : 'Spawn1');
     }
     if (creep.memory.role.split('-')[0] === 'solider') {
-      var soliderFlagPos = creep.name.split('-');
-      roleSolider(creep, soliderFlagPos[1]);
+      roleSolider(creep, creep.name.split('-')[1]);
     }
     if (creep.memory.role === 'engineer') {
       roleEngineer(creep);
     }
     if (creep.memory.role === 'attactSolider') {
-      roleAttact(creep);
+      roleAttact(creep, 'Flag2');
     }
+
     // spawn2
     if (creep.memory.role === 'transporter-spawn2') {
-      var transspawn = creep.name.split('-');
-      roleTransporter(creep, transspawn[1]);
+      roleTransporter(creep, creep.name.split('-')[1]);
     }
     if (creep.memory.role === 'upgrader-spawn2') {
-      var upgradspawn = creep.name.split('-');
-      roleUpgrader(creep, upgradspawn[1]);
+      roleUpgrader(creep, creep.name.split('-')[1]);
     }
     if (creep.memory.role === 'dig-spawn2-1') {
-      var creepType2 = creep.name.split('-');
-      if (creepType2[2] === '1') {
+      if (creep.name.split('-')[2] === '1') {
         roleDig(creep, '59f1a39482100e1594f3bbea');
       }
     }

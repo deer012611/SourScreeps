@@ -51,7 +51,12 @@ export const roleSolider = (creep: Creep, flag: string) => {
             }
           }
         } else {
-          if (creep.room.controller) {
+          if (flag === 'Flag6') {
+            // creep.travelTo(Game.flags[flag], { visualizePathStyle: { stroke: '#a856fa' } });
+            if (creep.reserveController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+              creep.travelTo(creep.room.controller);
+            }
+          } else if (creep.room.controller) {
             if (creep.reserveController(creep.room.controller) === ERR_NOT_IN_RANGE) {
               creep.travelTo(creep.room.controller);
             }
